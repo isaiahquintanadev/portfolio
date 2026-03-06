@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { experience } from "@/data/experience";
-import { formatDate } from "@/lib/utils";
+import { experience } from "@/src/data/experience";
+import { formatDate } from "@/src/lib/utils";
 
 export default function Experience() {
   return (
