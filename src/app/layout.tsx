@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/src/components/layout/Navbar";
 import "./globals.css";
+import BackToTopButton from "../components/ui/BackToTopButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,6 +10,20 @@ export const metadata: Metadata = {
   title: "Isaiah | Desarrollador Fullstack",
   description:
     "Desarrollador fullstack especializado en aplicaciones web modernas utilizando Next.js, TypeScript y arquitecturas escalables.",
+  openGraph: {
+    title: "Isaiah Quintana | Fullstack Developer",
+    description:
+      "Desarrollador Fullstack especializado en aplicaciones web modernas.",
+    url: "https://tu-dominio.com",
+    siteName: "Isaiah Portfolio",
+    images: [
+      {
+        url: "/avatar.jpeg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +42,7 @@ export default function RootLayout({
         </div>
         <Navbar />
         {children}
+        <BackToTopButton />
       </body>
     </html>
   );

@@ -1,11 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import { useActiveSection } from "@/src/lib/useActiveSection";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  const active = useActiveSection([
+    "about",
+    "experience",
+    "tech",
+    "projects",
+    "contact",
+  ]);
 
   const links = [
     { href: "#about", label: "Sobre mí" },
@@ -15,8 +25,21 @@ export default function Navbar() {
     { href: "#contact", label: "Contacto" },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-black/40 border-b border-white/10">
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 border-b border-white/10 backdrop-blur-xl transition-colors duration-300 ${
+        scrolled ? "bg-black/20" : "bg-black/40"
+      }`}
+    >
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <a
@@ -42,7 +65,11 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="hover:text-foreground transition-colors duration-200"
+              className={`transition-colors duration-200 ${
+                active === link.href.replace("#", "")
+                  ? "text-foreground"
+                  : "text-foreground/70 hover:text-foreground"
+              }`}
             >
               {link.label}
             </a>

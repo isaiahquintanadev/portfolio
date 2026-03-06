@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { experience } from "@/src/data/experience";
 import { formatDate } from "@/src/lib/utils";
+import { fadeUpStagger } from "@/src/lib/animations";
 
 export default function Experience() {
   return (
@@ -12,14 +13,7 @@ export default function Experience() {
 
         <div className="mt-16 relative border-l border-white/10 pl-8">
           {experience.map((job, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="mb-12"
-            >
+            <motion.div key={i} {...fadeUpStagger(i)} className="mb-12">
               <div className="absolute -left-[9px] mt-1 h-4 w-4 rounded-full bg-white/70"></div>
 
               <p className="text-sm text-foreground/50">

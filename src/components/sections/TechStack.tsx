@@ -1,50 +1,73 @@
 "use client";
 
+import { fadeUp, fadeUpStagger } from "@/src/lib/animations";
 import { motion } from "framer-motion";
-import { Code, Database, Server, Cloud } from "lucide-react";
 
-const tech = [
-  { name: "React", icon: Code },
-  { name: "Next.js", icon: Code },
-  { name: "TypeScript", icon: Code },
-  { name: "Node.js", icon: Server },
-  { name: "PostgreSQL", icon: Database },
-  { name: "Docker", icon: Server },
-  { name: "AWS", icon: Cloud },
-  { name: "Prisma", icon: Database },
-];
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiPostgresql,
+  SiGraphql,
+  SiDocker,
+} from "react-icons/si";
+
+const tech = {
+  frontend: [
+    { name: "React", icon: SiReact },
+    { name: "Next.js", icon: SiNextdotjs },
+    { name: "TypeScript", icon: SiTypescript },
+    { name: "Tailwind", icon: SiTailwindcss },
+  ],
+
+  backend: [
+    { name: "Node.js", icon: SiNodedotjs },
+    { name: "PostgreSQL", icon: SiPostgresql },
+    { name: "GraphQL", icon: SiGraphql },
+  ],
+
+  devops: [
+    { name: "Docker", icon: SiDocker },
+    // { name: "AWS", icon: SiAmazonaws },
+  ],
+};
 
 export default function TechStack() {
   return (
     <section id="tech" className="py-32">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl font-semibold mb-12 text-center"
+          {...fadeUp}
+          className="text-3xl font-semibold text-center mb-16"
         >
           Tecnologías
         </motion.h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {tech.map((item, i) => {
-            const Icon = item.icon;
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {Object.entries(tech).map(([category, items]) => (
+            <div key={category} className="text-center">
+              <h3 className="text-sm uppercase tracking-wider text-white/60 mb-6">
+                {category}
+              </h3>
 
-            return (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                whileHover={{ scale: 1.05 }}
-                className="flex flex-col items-center justify-center p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition"
-              >
-                <Icon size={28} className="mb-3 text-foreground/80" />
-                <span className="text-sm text-foreground/80">{item.name}</span>
-              </motion.div>
-            );
-          })}
+              <div className="flex flex-wrap justify-center gap-3">
+                {items.map(({ name, icon: Icon }, i) => (
+                  <motion.div
+                    key={name}
+                    {...fadeUpStagger(i)}
+                    whileHover={{ scale: 1.06 }}
+                    viewport={{ once: true }}
+                    className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition"
+                  >
+                    <Icon className="text-white/70" size={16} />
+                    {name}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

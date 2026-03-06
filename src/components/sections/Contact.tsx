@@ -1,5 +1,6 @@
 "use client";
 
+import { fadeUpStagger } from "@/src/lib/animations";
 import { motion } from "framer-motion";
 import { Mail, Github, Linkedin } from "lucide-react";
 
@@ -56,10 +57,7 @@ export default function Contact() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
+                {...fadeUpStagger(i)}
                 className="flex items-center gap-3 px-6 py-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition"
               >
                 <Icon size={20} />
