@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/src/components/layout/Navbar";
-import { ThemeProvider } from "@/src/components/providers/theme-provider";
+import { ThemeProvider } from "@/src/providers/theme-provider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -10,9 +10,6 @@ export const metadata: Metadata = {
   title: "Isaiah | Desarrollador Fullstack",
   description:
     "Desarrollador fullstack especializado en aplicaciones web modernas utilizando Next.js, TypeScript y arquitecturas escalables.",
-  icons: {
-    icon: "/app/icon.png",
-  },
 };
 
 export default function RootLayout({
