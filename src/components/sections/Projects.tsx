@@ -27,8 +27,8 @@ export default function Projects() {
         >
           <h2 className="text-3xl font-semibold">Proyectos</h2>
           <p className="mt-3 text-foreground/60">
-            Algunos proyectos recientes centrados en una experiencia de usuario
-            limpia y una arquitectura sólida.
+            Una selección de proyectos centrados en rendimiento, arquitectura
+            limpia y experiencia de usuario.
           </p>
         </motion.div>
 
@@ -40,7 +40,9 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: i * 0.06 }}
               viewport={{ once: true, amount: 0.25 }}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm cursor-pointer hover:border-white/20 transition"
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition backdrop-blur-sm cursor-pointer hover:border-white/20 transition"
+              onClick={() => p.href && window.open(p.href, "_blank")}
+              role="link"
             >
               {/* Hover glow (detalle fino) */}
               <div className="pointer-events-none absolute -inset-40 opacity-0 group-hover:opacity-100 transition duration-500">
@@ -48,13 +50,14 @@ export default function Projects() {
               </div>
 
               {p.image && (
-                <div className="relative w-full h-48 overflow-hidden rounded-lg mb-6">
+                <div className="relative w-full h-48 overflow-hidden rounded-xl mb-6 border border-white/10">
                   <Image
                     src={p.image}
                     alt={p.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition duration-500" />
                 </div>
               )}
 
@@ -66,7 +69,16 @@ export default function Projects() {
                         {p.title}
                       </h3>
                       {p.status && (
-                        <span className="text-[11px] px-2 py-0.5 rounded-full border border-white/10 bg-black/20 text-foreground/70">
+                        <span
+                          className={`text-[11px] px-2 py-0.5 rounded-full border
+                            ${
+                              p.status === "Live"
+                                ? "border-emerald-400/30 bg-emerald-500/10 text-emerald-300"
+                                : p.status === "Client"
+                                  ? "border-purple-400/30 bg-purple-500/10 text-purple-300"
+                                  : "border-white/10 bg-black/20 text-foreground/70"
+                            }`}
+                        >
                           {p.status}
                         </span>
                       )}
@@ -90,6 +102,8 @@ export default function Projects() {
                     {p.href && (
                       <a
                         href={p.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="rounded-lg p-2 border border-white/10 bg-black/10 hover:bg-white/10 transition"
                         aria-label="Demo"
                       >

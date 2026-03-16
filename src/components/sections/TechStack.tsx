@@ -37,7 +37,7 @@ const tech = {
 export default function TechStack() {
   return (
     <section id="tech" className="py-32">
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6 ">
         <motion.h2
           {...fadeUp}
           className="text-3xl font-semibold text-center mb-16"

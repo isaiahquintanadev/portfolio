@@ -2,32 +2,31 @@ import { Project } from "@/src/types/project";
 
 export const projects: Project[] = [
   {
-    title: "Portfolio Website",
+    title: "Alter Ego Experience",
     description:
-      "Mi portfolio personal centrado en un diseño elegante, animaciones sutiles y una arquitectura limpia.",
-    tech: ["Next.js", "Tailwind", "Framer Motion"],
-    href: "#",
-    repo: "#",
+      "Aplicación web desarrollada para eventos y discotecas que permite gestionar juegos interactivos durante fiestas. Incluye panel de administración para gestionar participantes, importación masiva desde Excel y ranking en tiempo real visible en pantallas del recinto. Utiliza Supabase para sincronización en tiempo real y base de datos PostgreSQL.",
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "TailwindCSS",
+      "Supabase",
+      "PostgreSQL",
+      "Framer Motion",
+      "XLSX",
+    ],
+    href: "https://alterego-web.vercel.app/",
     status: "Live",
-    image: "/projects/portfolio.png",
+    image: "/projects/alterego.png",
+    featured: true,
   },
   {
-    title: "Personal Blog",
+    title: "Fast Image Convert",
     description:
-      "Un blog técnico moderno construido con Next.js y MDX enfocado en rendimiento, SEO y experiencia de desarrollo.",
-    tech: ["Next.js", "TypeScript", "Tailwind", "MDX"],
-    href: "#",
-    repo: "#",
-    status: "WIP",
-    image: "/projects/blog.png",
-  },
-  {
-    title: "Side Project API",
-    description:
-      "Proyecto backend experimental explorando GraphQL, validación de esquemas y arquitectura escalable.",
-    tech: ["Node.js", "GraphQL", "PostgreSQL", "Docker"],
-    repo: "#",
-    status: "WIP",
-    image: "/projects/api.png",
+      "Aplicación web de alto rendimiento para convertir imágenes entre formatos (JPG, PNG, WEBP y AVIF) directamente desde el navegador. Implementa páginas dinámicas optimizadas para SEO que generan múltiples combinaciones de conversión para maximizar el posicionamiento orgánico. Desplegado en Vercel con procesamiento de imágenes mediante Sharp.",
+    tech: ["Next.js", "React", "TypeScript", "TailwindCSS", "Sharp", "Vercel"],
+    href: "https://fastimgconvert.vercel.app/",
+    status: "Client",
+    image: "/projects/fastimgconvert.png",
   },
 ];
