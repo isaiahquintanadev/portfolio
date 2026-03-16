@@ -8,10 +8,18 @@ import {
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
+  SiFramer,
   SiNodedotjs,
-  SiPostgresql,
   SiGraphql,
+  SiSupabase,
+  SiSharp,
+  SiPostgresql,
+  SiMysql,
+  SiPython,
+  SiExpress,
   SiDocker,
+  SiVercel,
+  SiGit,
 } from "react-icons/si";
 
 const tech = {
@@ -19,25 +27,36 @@ const tech = {
     { name: "React", icon: SiReact },
     { name: "Next.js", icon: SiNextdotjs },
     { name: "TypeScript", icon: SiTypescript },
-    { name: "Tailwind", icon: SiTailwindcss },
+    { name: "TailwindCSS", icon: SiTailwindcss },
+    { name: "Framer Motion", icon: SiFramer },
   ],
 
   backend: [
     { name: "Node.js", icon: SiNodedotjs },
-    { name: "PostgreSQL", icon: SiPostgresql },
+    { name: "Express.js", icon: SiExpress },
     { name: "GraphQL", icon: SiGraphql },
+    { name: "REST API", icon: SiNodedotjs },
+    { name: "Supabase", icon: SiSupabase },
+    { name: "Sharp", icon: SiSharp },
+    { name: "Python", icon: SiPython },
+  ],
+
+  database: [
+    { name: "PostgreSQL", icon: SiPostgresql },
+    { name: "MySQL", icon: SiMysql },
   ],
 
   devops: [
     { name: "Docker", icon: SiDocker },
-    // { name: "AWS", icon: SiAmazonaws },
+    { name: "Vercel", icon: SiVercel },
+    { name: "Git", icon: SiGit },
   ],
 };
 
 export default function TechStack() {
   return (
     <section id="tech" className="py-32">
-      <div className="max-w-5xl mx-auto px-6 ">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.h2
           {...fadeUp}
           className="text-3xl font-semibold text-center mb-16"
@@ -45,7 +64,7 @@ export default function TechStack() {
           Tecnologías
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {Object.entries(tech).map(([category, items]) => (
             <div key={category} className="text-center">
               <h3 className="text-sm uppercase tracking-wider text-white/60 mb-6">

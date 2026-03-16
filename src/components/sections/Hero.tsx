@@ -41,7 +41,7 @@ export default function Hero() {
 
         <div className="flex justify-center gap-12 mt-16">
           {[
-            { value: "3+", label: "Años experiencia" },
+            { value: "5+", label: "Años experiencia" },
             { value: "10+", label: "Proyectos" },
             { value: "8+", label: "Tecnologías" },
           ].map((stat) => (
