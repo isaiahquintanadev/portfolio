@@ -26,7 +26,7 @@ export default function About() {
           viewport={{ once: true }}
           className="mt-6 text-center text-foreground/70 leading-relaxed max-w-6xl mx-auto"
         >
-          Desarrollador fullstack con más de 3 años de experiencia creando
+          Desarrollador fullstack con más de 5 años de experiencia creando
           aplicaciones web modernas. Disfruto diseñando arquitecturas
           escalables, escribiendo código limpio y creando experiencias de
           usuario pulidas que se sienten rápidas e intuitivas.
