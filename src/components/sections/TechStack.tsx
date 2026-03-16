@@ -3,6 +3,7 @@
 import { fadeUp, fadeUpStagger } from "@/src/lib/animations";
 import { motion } from "framer-motion";
 
+import { GrOracle } from "react-icons/gr";
 import {
   SiReact,
   SiNextdotjs,
@@ -44,6 +45,7 @@ const tech = {
   database: [
     { name: "PostgreSQL", icon: SiPostgresql },
     { name: "MySQL", icon: SiMysql },
+    { name: "Oracle", icon: GrOracle },
   ],
 
   devops: [
