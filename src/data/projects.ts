@@ -16,7 +16,7 @@ export const projects: Project[] = [
       "XLSX",
     ],
     href: "https://alterego-web.vercel.app/",
-    status: "Live",
+    status: "Client",
     image: "/projects/alterego.png",
     featured: true,
   },
@@ -26,7 +26,7 @@ export const projects: Project[] = [
       "Aplicación web de alto rendimiento para convertir imágenes entre formatos (JPG, PNG, WEBP y AVIF) directamente desde el navegador. Implementa páginas dinámicas optimizadas para SEO que generan múltiples combinaciones de conversión para maximizar el posicionamiento orgánico. Desplegado en Vercel con procesamiento de imágenes mediante Sharp.",
     tech: ["Next.js", "React", "TypeScript", "TailwindCSS", "Sharp", "Vercel"],
     href: "https://fastimgconvert.vercel.app/",
-    status: "Client",
+    status: "Live",
     image: "/projects/fastimgconvert.png",
   },
 ];
