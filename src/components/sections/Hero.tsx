@@ -98,7 +98,10 @@ export default function Hero() {
           transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
           className="relative mx-auto w-full max-w-sm lg:max-w-md"
         >
-          <div className="absolute -inset-6 rounded-[2rem] bg-[radial-gradient(circle_at_30%_20%,rgba(168,85,247,0.24),transparent_42%),radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.2),transparent_40%)] blur-2xl" />
+          <div
+            aria-hidden="true"
+            className="absolute -inset-5 hidden rounded-[2rem] bg-[radial-gradient(circle_at_30%_20%,rgba(168,85,247,0.2),transparent_42%),radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.16),transparent_40%)] blur-xl sm:block"
+          />
 
           <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/60 p-3 shadow-2xl shadow-black/30 backdrop-blur-xl">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-[linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02)),radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.12),transparent_38%)]">
@@ -110,7 +113,10 @@ export default function Hero() {
                 sizes="(min-width: 1024px) 420px, 80vw"
                 className="object-cover object-[center_18%]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-transparent" />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-transparent"
+              />
             </div>
 
             <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/10 bg-slate-950/70 p-4 backdrop-blur-md">

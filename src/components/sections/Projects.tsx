@@ -102,7 +102,7 @@ function CaseStudyModal({
       <motion.div
         role="dialog"
         aria-modal="true"
-        aria-label={`Caso de estudio de ${project.title}`}
+        aria-labelledby="case-study-title"
         className="relative max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-2xl border border-white/10 bg-slate-950 text-white shadow-2xl shadow-black/50"
         initial={{ opacity: 0, y: 16, scale: 0.99 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -110,7 +110,10 @@ function CaseStudyModal({
         transition={{ duration: 0.2, ease: smoothEase }}
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_18%_10%,rgba(168,85,247,0.22),transparent_42%),radial-gradient(circle_at_82%_8%,rgba(59,130,246,0.2),transparent_38%)]" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_18%_10%,rgba(168,85,247,0.22),transparent_42%),radial-gradient(circle_at_82%_8%,rgba(59,130,246,0.2),transparent_38%)]"
+        />
 
         <button
           type="button"
@@ -143,7 +146,10 @@ function CaseStudyModal({
               <p className="text-xs font-medium uppercase tracking-[0.22em] text-purple-300/80">
                 Caso de estudio
               </p>
-              <h3 className="mt-3 text-3xl font-semibold tracking-tight">
+              <h3
+                id="case-study-title"
+                className="mt-3 text-3xl font-semibold tracking-tight"
+              >
                 {project.title}
               </h3>
               <p className="mt-4 text-sm leading-6 text-white/62">
@@ -168,6 +174,7 @@ function CaseStudyModal({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex min-h-10 items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-950 transition hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/40"
+                  aria-label={`Abrir web de ${project.title}`}
                 >
                   Ver proyecto
                   <ArrowUpRight size={16} />
@@ -314,7 +321,10 @@ export default function Projects() {
                     : "flex min-h-full flex-col"
                 }`}
               >
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 md:group-hover:opacity-100">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 md:group-hover:opacity-100"
+                >
                   <div className="absolute inset-x-0 top-0 h-52 bg-[radial-gradient(circle_at_25%_20%,rgba(168,85,247,0.22),transparent_46%),radial-gradient(circle_at_80%_10%,rgba(59,130,246,0.2),transparent_42%)]" />
                 </div>
 
@@ -326,7 +336,10 @@ export default function Projects() {
                         : "aspect-[16/10]"
                     }`}
                   >
-                    <div className="absolute left-4 top-4 z-10 flex gap-1.5">
+                    <div
+                      aria-hidden="true"
+                      className="absolute left-4 top-4 z-10 flex gap-1.5"
+                    >
                       <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
                       <span className="h-2.5 w-2.5 rounded-full bg-yellow-300/80" />
                       <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
@@ -360,7 +373,10 @@ export default function Projects() {
                       </div>
                     )}
 
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-white/[0.03]" />
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-white/[0.03]"
+                    />
                   </div>
                 </div>
 
@@ -424,6 +440,7 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm font-medium text-foreground/85 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+                        aria-label={`Abrir web de ${project.title}`}
                       >
                         Web
                         <ArrowUpRight size={16} />

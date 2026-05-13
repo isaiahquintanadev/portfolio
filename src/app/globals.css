@@ -128,6 +128,9 @@
 body {
   background-color: #0f172a;
   color: white;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 body::before {
@@ -140,6 +143,7 @@ body::before {
   );
   background-size: 40px 40px;
   pointer-events: none;
+  opacity: 0.55;
 }
 
 html {
@@ -152,6 +156,20 @@ html {
     border-color 0.2s ease,
     color 0.2s ease,
     opacity 0.2s ease;
+}
+
+::selection {
+  background: rgba(168, 85, 247, 0.35);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.72);
+  outline-offset: 3px;
+}
+
+#main-content:focus {
+  outline: none;
 }
 
 @keyframes gradientMove {

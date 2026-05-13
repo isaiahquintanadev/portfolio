@@ -6,42 +6,59 @@ export function useActiveSection(ids: string[]) {
   const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // ARRIBA DEL TODO
+    let frame = 0;
+
+    const updateActiveSection = () => {
+      frame = 0;
+
       if (window.scrollY < 80) {
-        setActive(null);
+        setActive((current) => (current === null ? current : null));
         return;
       }
 
-      // FINAL DE PÁGINA
       const scrollBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
 
       if (scrollBottom) {
-        setActive(ids[ids.length - 1]);
+        const last = ids[ids.length - 1];
+        setActive((current) => (current === last ? current : last));
         return;
       }
 
-      let current = ids[0];
+      let currentSection = ids[0];
 
       for (const id of ids) {
-        const el = document.getElementById(id);
-        if (!el) continue;
+        const element = document.getElementById(id);
+        if (!element) continue;
 
-        const rect = el.getBoundingClientRect();
+        const rect = element.getBoundingClientRect();
 
-        if (rect.top <= 120) {
-          current = id;
+        if (rect.top <= 128) {
+          currentSection = id;
         }
       }
 
-      setActive(current);
+      setActive((current) =>
+        current === currentSection ? current : currentSection,
+      );
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
+    const handleScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateActiveSection);
+    };
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    updateActiveSection();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, [ids]);
 
   return active;
