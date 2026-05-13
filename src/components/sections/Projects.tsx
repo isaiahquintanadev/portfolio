@@ -17,6 +17,13 @@ import {
 import { projects } from "@/src/data/projects";
 import { Project } from "@/src/types/project";
 
+const smoothEase = [0.22, 1, 0.36, 1] as const;
+const scrollViewport = {
+  once: true,
+  amount: 0.16,
+  margin: "0px 0px -72px 0px",
+};
+
 const statusStyles = {
   Live: "border-emerald-400/30 bg-emerald-500/10 text-emerald-300",
   Client: "border-purple-400/30 bg-purple-500/10 text-purple-300",
@@ -97,10 +104,10 @@ function CaseStudyModal({
         aria-modal="true"
         aria-label={`Caso de estudio de ${project.title}`}
         className="relative max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-2xl border border-white/10 bg-slate-950 text-white shadow-2xl shadow-black/50"
-        initial={{ opacity: 0, y: 24, scale: 0.98 }}
+        initial={{ opacity: 0, y: 16, scale: 0.99 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 24, scale: 0.98 }}
-        transition={{ duration: 0.22 }}
+        exit={{ opacity: 0, y: 16, scale: 0.99 }}
+        transition={{ duration: 0.2, ease: smoothEase }}
         onClick={(event) => event.stopPropagation()}
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_18%_10%,rgba(168,85,247,0.22),transparent_42%),radial-gradient(circle_at_82%_8%,rgba(59,130,246,0.2),transparent_38%)]" />
@@ -267,10 +274,10 @@ export default function Projects() {
     <section id="projects" className="py-24 sm:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
-          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.45, ease: smoothEase }}
+          viewport={scrollViewport}
           className="mx-auto max-w-3xl text-center"
         >
           <span className="text-xs font-medium uppercase tracking-[0.24em] text-purple-300/80">
@@ -293,17 +300,21 @@ export default function Projects() {
             return (
               <motion.article
                 key={project.title}
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: index * 0.06 }}
-                viewport={{ once: true, amount: 0.2 }}
-                className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/55 shadow-2xl shadow-black/20 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-slate-950/75 ${
+                transition={{
+                  duration: 0.42,
+                  delay: Math.min(index * 0.04, 0.12),
+                  ease: smoothEase,
+                }}
+                viewport={scrollViewport}
+                className={`group relative transform-gpu overflow-hidden rounded-2xl border border-white/10 bg-slate-950/55 shadow-2xl shadow-black/20 backdrop-blur-xl transition-[transform,background-color,border-color] duration-300 md:hover:-translate-y-1 md:hover:border-white/20 md:hover:bg-slate-950/75 ${
                   isSpotlight
                     ? "md:col-span-2 lg:grid lg:grid-cols-[0.95fr_1.05fr]"
                     : "flex min-h-full flex-col"
                 }`}
               >
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
+                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 md:group-hover:opacity-100">
                   <div className="absolute inset-x-0 top-0 h-52 bg-[radial-gradient(circle_at_25%_20%,rgba(168,85,247,0.22),transparent_46%),radial-gradient(circle_at_80%_10%,rgba(59,130,246,0.2),transparent_42%)]" />
                 </div>
 
@@ -339,7 +350,7 @@ export default function Projects() {
                             : "(min-width: 768px) 50vw, 100vw"
                         }
                         priority={index < 2}
-                        className={`object-contain transition duration-500 group-hover:scale-[1.03] ${
+                        className={`object-contain transition-transform duration-500 md:group-hover:scale-[1.03] ${
                           isSpotlight ? "p-8 sm:p-12" : "p-8 sm:p-10"
                         }`}
                       />

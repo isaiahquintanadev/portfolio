@@ -78,9 +78,7 @@ export default function TechStack() {
                   <motion.div
                     key={name}
                     {...fadeUpStagger(i)}
-                    whileHover={{ scale: 1.06 }}
-                    viewport={{ once: true }}
-                    className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition"
+                    className="transform-gpu flex items-center gap-2 px-4 py-2 text-sm rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm transition-[transform,background-color] duration-200 md:hover:-translate-y-0.5 md:hover:bg-white/10"
                   >
                     <Icon className="text-white/70" size={16} />
                     {name}

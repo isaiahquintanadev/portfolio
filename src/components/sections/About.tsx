@@ -1,29 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { fadeUp } from "@/src/lib/animations";
-import { fadeUpStagger } from "@/src/lib/animations";
+import { fadeUp, fadeUpStagger } from "@/src/lib/animations";
 
 export default function About() {
   return (
     <section id="about" className="py-28">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Title */}
         <motion.h2
           {...fadeUp}
-          transition={{ duration: 0.55 }}
-          viewport={{ once: true }}
           className="text-3xl font-semibold text-center"
         >
           Sobre mí
         </motion.h2>
 
-        {/* Description */}
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.55 }}
-          viewport={{ once: true }}
+          {...fadeUpStagger(1)}
           className="mt-6 text-center text-foreground/70 leading-relaxed max-w-6xl mx-auto"
         >
           Desarrollador fullstack con más de 5 años de experiencia creando
@@ -32,7 +24,6 @@ export default function About() {
           usuario pulidas que se sienten rápidas e intuitivas.
         </motion.p>
 
-        {/* Highlights */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
           {[
             {
@@ -53,10 +44,8 @@ export default function About() {
           ].map((item, i) => (
             <motion.div
               key={item.title}
-              {...fadeUpStagger}
-              viewport={{ once: true }}
-              className="p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition"
-              whileHover={{ scale: 1.05 }}
+              {...fadeUpStagger(i)}
+              className="transform-gpu p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm transition-[transform,background-color] duration-200 md:hover:-translate-y-1 md:hover:bg-white/10"
             >
               <h3 className="text-lg font-medium">{item.title}</h3>
               <p className="text-sm text-foreground/60 mt-2">

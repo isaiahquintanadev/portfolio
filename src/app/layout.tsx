@@ -36,7 +36,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} bg-[#0a0a0a] text-foreground antialiased`}
       >
-        <div className="fixed inset-0 -z-10">
+        <div className="fixed inset-0 -z-10 hidden sm:block">
           <div className="absolute top-0 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-purple-600/20 blur-[120px]" />
           <div className="absolute bottom-0 right-1/3 h-[400px] w-[400px] rounded-full bg-blue-600/20 blur-[120px]" />
         </div>
