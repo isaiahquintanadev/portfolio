@@ -17,6 +17,11 @@ export type ProjectCaseStudy = {
   outcome: string;
 };
 
+export type ProjectMetric = {
+  value: string;
+  label: string;
+};
+
 export type Project = {
   title: string;
   description: string;
@@ -26,5 +31,7 @@ export type Project = {
   status?: ProjectStatus;
   image?: string; // Ejemplo: "/projects/blog.png"
   featured?: boolean; // De cara a futuro mostrar mejores proyectos arriba si es true
+  spotlight?: boolean;
+  metrics?: ProjectMetric[];
   caseStudy?: ProjectCaseStudy;
 };

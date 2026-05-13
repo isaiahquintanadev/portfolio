@@ -4,7 +4,7 @@ export const projects: Project[] = [
   {
     title: "PsicotestPol",
     description:
-      "Plataforma de apoyo para opositores de policía municipal. Permite generar tests personalizados, realizar simulacros de examen, consultar estadísticas de progreso y entrenar con herramientas enfocadas a mejorar la preparación.",
+      "Producto SaaS para opositores de policía municipal. Centraliza práctica diaria, generación de tests, simulacros y estadísticas para que el usuario pueda entrenar con más foco y medir su evolución.",
     tech: [
       "Next.js",
       "React",
@@ -19,22 +19,30 @@ export const projects: Project[] = [
     status: "Live",
     image: "/projects/logo_header_dark.png",
     featured: true,
+    spotlight: true,
+    metrics: [
+      { value: "Tests", label: "Generación personalizada" },
+      { value: "Simulacros", label: "Entrenamiento tipo examen" },
+      { value: "Stats", label: "Seguimiento de rendimiento" },
+    ],
     caseStudy: {
       problem:
         "Los opositores necesitan practicar de forma constante, medir su evolución y entrenar con simulacros realistas sin depender siempre de materiales cerrados o poco personalizados.",
       solution:
         "Una plataforma web donde el usuario puede generar sus propios tests, realizar simulacros de examen y consultar estadísticas para detectar puntos débiles y preparar mejor cada sesión de estudio.",
-      role: "Diseño y desarrollo full-stack de la plataforma, desde la experiencia de usuario hasta la integración de servicios, persistencia de datos y despliegue.",
+      role: "Diseño y desarrollo full-stack de la plataforma, desde la experiencia de usuario hasta la integración de servicios, persistencia de datos, pagos, emails transaccionales y despliegue.",
       features: [
         "Generación de tests personalizados.",
         "Simulacros de examen enfocados a oposición.",
         "Estadísticas de progreso y rendimiento.",
         "Flujos de usuario preparados para estudio recurrente.",
+        "Base técnica preparada para monetización y comunicaciones.",
       ],
       challenges: [
         "Diseñar una experiencia clara para sesiones largas de práctica.",
         "Organizar datos de resultados para convertirlos en métricas útiles.",
         "Mantener una interfaz responsive cómoda en móvil.",
+        "Preparar una base escalable para nuevas funcionalidades de entrenamiento.",
       ],
       architecture: [
         "Next.js y React para la interfaz y estructura de producto.",
@@ -50,7 +58,7 @@ export const projects: Project[] = [
   {
     title: "Alter Ego Experience",
     description:
-      "Aplicación web desarrollada para eventos y discotecas que permite gestionar juegos interactivos durante fiestas. Incluye panel de administración para gestionar participantes, importación masiva desde Excel y ranking en tiempo real visible en pantallas del recinto. Utiliza Supabase para sincronización en tiempo real y base de datos PostgreSQL.",
+      "Aplicación para eventos y discotecas con administración de participantes, importación desde Excel, QR de validación y ranking en tiempo real para pantallas del recinto.",
     tech: [
       "Next.js",
       "React",
@@ -69,6 +77,11 @@ export const projects: Project[] = [
     status: "Finished",
     image: "/projects/alterego-logo.png",
     featured: true,
+    metrics: [
+      { value: "Realtime", label: "Ranking sincronizado" },
+      { value: "QR", label: "Generación y escaneo" },
+      { value: "Excel", label: "Importación masiva" },
+    ],
     caseStudy: {
       problem:
         "El evento necesitaba una experiencia interactiva fácil de activar en sala, con gestión de participantes, validación ágil y ranking visible en tiempo real durante la dinámica.",
@@ -86,6 +99,7 @@ export const projects: Project[] = [
         "Sincronizar cambios en tiempo real durante una experiencia presencial.",
         "Hacer que la validación con cámara fuese rápida y usable.",
         "Preparar una interfaz clara para personal de administración y público.",
+        "Combinar una experiencia visual de evento con herramientas de gestión.",
       ],
       architecture: [
         "Next.js, React y TypeScript como base de aplicación.",
@@ -102,11 +116,16 @@ export const projects: Project[] = [
   {
     title: "Fast Image Convert",
     description:
-      "Aplicación web de alto rendimiento para convertir imágenes entre formatos (JPG, PNG, WEBP y AVIF) directamente desde el navegador. Implementa páginas dinámicas optimizadas para SEO que generan múltiples combinaciones de conversión para maximizar el posicionamiento orgánico. Desplegado en Vercel con procesamiento de imágenes mediante Sharp.",
+      "Herramienta web para convertir imágenes entre JPG, PNG, WEBP y AVIF, con páginas dinámicas orientadas a SEO y procesamiento optimizado mediante Sharp.",
     tech: ["Next.js", "React", "TypeScript", "TailwindCSS", "Sharp", "Vercel"],
     href: "https://fastimgconvert.vercel.app/",
     status: "Live",
     image: "/projects/fastimgconvert.png",
+    metrics: [
+      { value: "4 formatos", label: "JPG, PNG, WEBP y AVIF" },
+      { value: "SEO", label: "Rutas dinámicas" },
+      { value: "Sharp", label: "Procesamiento optimizado" },
+    ],
     caseStudy: {
       problem:
         "Los usuarios necesitan convertir imágenes rápido entre formatos modernos sin instalar herramientas pesadas y con una experiencia directa desde navegador.",
