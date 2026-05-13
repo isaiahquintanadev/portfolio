@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowUpRight,
   BriefcaseBusiness,
+  Check,
+  Copy,
   Github,
   Linkedin,
   Mail,
@@ -13,14 +16,9 @@ import {
 
 import { fadeUp, fadeUpStagger } from "@/src/lib/animations";
 
-const links = [
-  {
-    name: "Email",
-    description: "La forma más directa de hablar",
-    href: "mailto:isaiahquintanadev@gmail.com",
-    icon: Mail,
-    primary: true,
-  },
+const email = "isaiahquintanadev@gmail.com";
+
+const socialLinks = [
   {
     name: "LinkedIn",
     description: "Perfil profesional y contacto",
@@ -49,6 +47,18 @@ const workingStyle = [
 ];
 
 export default function Contact() {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-24 sm:py-28">
       <div className="mx-auto max-w-6xl px-6">
@@ -113,54 +123,70 @@ export default function Contact() {
           </motion.div>
 
           <div className="grid gap-4">
-            {links.map((link, index) => {
+            <motion.div
+              {...fadeUpStagger(0)}
+              className="rounded-2xl border border-white/15 bg-white p-5 text-slate-950 backdrop-blur-sm"
+            >
+              <div className="flex items-start gap-4">
+                <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
+                  <Mail size={19} />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold">Email</p>
+                  <p className="mt-1 text-sm text-slate-600">
+                    La forma más directa de hablar
+                  </p>
+                  <p className="mt-3 break-all text-sm font-medium text-slate-800">
+                    {email}
+                  </p>
+
+                  <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                    <a
+                      href={`mailto:${email}`}
+                      className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-950/30"
+                    >
+                      Abrir correo
+                      <ArrowUpRight size={16} />
+                    </a>
+                    <button
+                      type="button"
+                      onClick={copyEmail}
+                      className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-950/20"
+                    >
+                      {copied ? "Copiado" : "Copiar email"}
+                      {copied ? <Check size={16} /> : <Copy size={16} />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {socialLinks.map((link, index) => {
               const Icon = link.icon;
 
               return (
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel={
-                    link.href.startsWith("mailto:")
-                      ? undefined
-                      : "noopener noreferrer"
-                  }
-                  {...fadeUpStagger(index)}
-                  className={`group transform-gpu rounded-2xl border p-5 backdrop-blur-sm transition-[transform,background-color,border-color] duration-200 md:hover:-translate-y-1 ${
-                    link.primary
-                      ? "border-white/15 bg-white text-slate-950"
-                      : "border-white/10 bg-white/[0.045] text-white md:hover:bg-white/[0.07]"
-                  }`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  {...fadeUpStagger(index + 1)}
+                  className="group transform-gpu rounded-2xl border border-white/10 bg-white/[0.045] p-5 text-white backdrop-blur-sm transition-[transform,background-color,border-color] duration-200 md:hover:-translate-y-1 md:hover:bg-white/[0.07]"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      <div
-                        className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${
-                          link.primary
-                            ? "bg-slate-950 text-white"
-                            : "border border-white/10 bg-black/10 text-white"
-                        }`}
-                      >
+                      <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-black/10 text-white">
                         <Icon size={19} />
                       </div>
                       <div>
                         <p className="font-semibold">{link.name}</p>
-                        <p
-                          className={`mt-1 text-sm ${
-                            link.primary ? "text-slate-600" : "text-white/50"
-                          }`}
-                        >
+                        <p className="mt-1 text-sm text-white/50">
                           {link.description}
                         </p>
                       </div>
                     </div>
 
-                    <ArrowUpRight
-                      className={`h-5 w-5 shrink-0 transition-transform duration-200 md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5 ${
-                        link.primary ? "text-slate-700" : "text-white/55"
-                      }`}
-                    />
+                    <ArrowUpRight className="h-5 w-5 shrink-0 text-white/55 transition-transform duration-200 md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5" />
                   </div>
                 </motion.a>
               );
