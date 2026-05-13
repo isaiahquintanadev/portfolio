@@ -87,13 +87,6 @@ export default function RootLayout({
         >
           Saltar al contenido
         </a>
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-0 -z-10"
-        >
-          <div className="absolute -top-20 left-1/2 h-[340px] w-[340px] -translate-x-1/2 rounded-full bg-purple-600/18 blur-[86px] sm:top-0 sm:h-[420px] sm:w-[420px] sm:blur-[96px]" />
-          <div className="absolute bottom-10 right-[-90px] h-[300px] w-[300px] rounded-full bg-blue-600/14 blur-[82px] sm:bottom-0 sm:right-1/3 sm:h-[340px] sm:w-[340px] sm:blur-[96px]" />
-        </div>
         <Navbar />
         {children}
         <BackToTopButton />

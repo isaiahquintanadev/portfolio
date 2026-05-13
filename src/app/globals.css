@@ -131,6 +131,21 @@ html {
 
 body {
   background-color: #0f172a;
+  background-image:
+    radial-gradient(
+      circle at 50% 24%,
+      rgba(126, 34, 206, 0.34),
+      rgba(126, 34, 206, 0.18) 18%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 72% 78%,
+      rgba(37, 99, 235, 0.26),
+      rgba(37, 99, 235, 0.14) 18%,
+      transparent 40%
+    );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   color: white;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
@@ -147,7 +162,6 @@ body::before {
   );
   background-size: 40px 40px;
   pointer-events: none;
-  opacity: 0.55;
 }
 
 html {
@@ -197,8 +211,7 @@ html {
 
 @media (max-width: 640px) {
   body::before {
-    background-size: 34px 34px;
-    opacity: 0.42;
+    background-size: 40px 40px;
   }
 }
 
