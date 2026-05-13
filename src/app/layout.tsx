@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/src/components/layout/Navbar";
 import "./globals.css";
 import BackToTopButton from "../components/ui/BackToTopButton";
@@ -90,6 +91,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <BackToTopButton />
+        <Analytics />
       </body>
     </html>
   );
