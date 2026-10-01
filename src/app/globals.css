@@ -168,6 +168,10 @@ html {
   scroll-behavior: smooth;
 }
 
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 :where(a, button) {
   transition:
     background-color 0.2s ease,

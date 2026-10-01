@@ -3,6 +3,9 @@ import { Project } from "@/src/types/project";
 export const projects: Project[] = [
   {
     title: "PsicotestPol",
+    slug: "psicotestpol",
+    imageAlt: "Logotipo de PsicotestPol",
+    seoDescription: "Desarrollo full-stack de PsicotestPol: plataforma de práctica para opositores con tests personalizados, simulacros, estadísticas e integraciones.",
     description:
       "Producto SaaS para opositores de policía municipal. Centraliza práctica diaria, generación de tests, simulacros y estadísticas para que el usuario pueda entrenar con más foco y medir su evolución.",
     tech: [
@@ -15,7 +18,8 @@ export const projects: Project[] = [
       "Resend",
       "Vercel",
     ],
-    href: "https://psicotestpol-web.vercel.app/",
+    href: "https://psicotestpol.com",
+    access: "private",
     status: "Live",
     image: "/projects/logo_header_dark.png",
     featured: true,
@@ -56,7 +60,56 @@ export const projects: Project[] = [
     },
   },
   {
+    title: "Being Fit",
+    slug: "being-fit",
+    imageAlt: "Captura de la web de Being Fit, Woman Fitness Studio",
+    seoDescription: "Diseño y desarrollo de la web de Being Fit, un estudio fitness para mujeres en Bilbao, con clases, horarios, tarifas y acceso a reservas.",
+    description:
+      "Web para Woman Fitness Studio, un estudio fitness para mujeres en Bilbao. Diseño y desarrollo responsive a partir de la identidad de marca, con clases, horarios y tarifas, recorridos hacia clase de prueba, WhatsApp y reservas, y SEO técnico y local.",
+    tech: ["Next.js", "React", "TypeScript", "TailwindCSS", "Vercel"],
+    href: "https://www.beingfit.es",
+    status: "Client",
+    image: "/projects/being-fit.webp",
+    featured: true,
+    metrics: [
+      { value: "Marca", label: "Identidad y recursos reales" },
+      { value: "Conversión", label: "Clase de prueba y reservas" },
+      { value: "SEO local", label: "Visibilidad en Bilbao" },
+    ],
+    caseStudy: {
+      problem:
+        "Being Fit necesitaba una nueva web que trasladase la identidad del estudio al entorno digital, presentase su oferta con claridad y facilitase el contacto y las reservas desde cualquier dispositivo.",
+      solution:
+        "Una web responsive basada en la identidad visual y el material proporcionado por la clienta, con información de clases, horarios, tarifas y servicios, y recorridos hacia la clase de prueba, WhatsApp y reservas.",
+      role: "Diseño y desarrollo completo de la web, adaptación de recursos de marca, optimización responsive, SEO técnico y local, accesibilidad y rendimiento, despliegue en Vercel y configuración del dominio existente.",
+      features: [
+        "Presentación del estudio, clases y servicios.",
+        "Consulta de horarios y tarifas.",
+        "Flujos hacia clase de prueba, WhatsApp y reservas.",
+        "Identidad visual y fotografías reales de la marca.",
+        "Diseño responsive para móvil y escritorio.",
+      ],
+      challenges: [
+        "Trasladar la identidad del estudio a una experiencia web coherente.",
+        "Organizar la oferta y las llamadas a la acción con una jerarquía clara.",
+        "Optimizar los recursos visuales cuidando la calidad y el rendimiento.",
+        "Cuidar accesibilidad y SEO técnico y local para el estudio en Bilbao.",
+      ],
+      architecture: [
+        "Next.js y React para la estructura y los componentes de la web.",
+        "TypeScript para mantener una base de código tipada.",
+        "TailwindCSS para el diseño responsive y la adaptación visual de marca.",
+        "Vercel para el despliegue, con configuración del dominio existente.",
+      ],
+      outcome:
+        "Una web publicada en el dominio de Being Fit, alineada con la marca y con información clara para conocer el estudio, consultar su oferta y dar el siguiente paso hacia una clase de prueba o una reserva.",
+    },
+  },
+  {
     title: "Alter Ego Experience",
+    slug: "alter-ego-experience",
+    imageAlt: "Logotipo de Alter Ego Experience",
+    seoDescription: "Desarrollo full-stack de Alter Ego Experience: gestión de participantes para eventos, importación desde Excel, validación QR y rankings en tiempo real.",
     description:
       "Aplicación para eventos y discotecas con administración de participantes, importación desde Excel, QR de validación y ranking en tiempo real para pantallas del recinto.",
     tech: [
@@ -73,7 +126,7 @@ export const projects: Project[] = [
       "Framer Motion",
       "XLSX",
     ],
-    href: "https://alterego-web.vercel.app/",
+    href: "https://alteregoexperience.org",
     status: "Finished",
     image: "/projects/alterego-logo.png",
     featured: true,
@@ -115,6 +168,9 @@ export const projects: Project[] = [
   },
   {
     title: "Fast Image Convert",
+    slug: "fast-image-convert",
+    imageAlt: "Captura de la herramienta Fast Image Convert",
+    seoDescription: "Desarrollo de Fast Image Convert, una herramienta web de conversión de imágenes entre JPG, PNG, WEBP y AVIF con procesamiento mediante Sharp.",
     description:
       "Herramienta web para convertir imágenes entre JPG, PNG, WEBP y AVIF, con páginas dinámicas orientadas a SEO y procesamiento optimizado mediante Sharp.",
     tech: ["Next.js", "React", "TypeScript", "TailwindCSS", "Sharp", "Vercel"],
@@ -155,3 +211,17 @@ export const projects: Project[] = [
     },
   },
 ];
+
+export const publicProjects = projects.filter((project) => project.published !== false);
+
+const slugs = new Set<string>();
+for (const project of publicProjects) {
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(project.slug) || slugs.has(project.slug)) {
+    throw new Error(`Slug de proyecto inválido o duplicado: ${project.slug}`);
+  }
+  slugs.add(project.slug);
+}
+
+export function getProject(slug: string) {
+  return publicProjects.find((project) => project.slug === slug);
+}

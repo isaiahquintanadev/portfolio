@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-export function useActiveSection(ids: string[]) {
+export function useActiveSection(ids: string[], enabled = true) {
   const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!enabled) return;
     let frame = 0;
 
     const updateActiveSection = () => {
@@ -59,7 +60,7 @@ export function useActiveSection(ids: string[]) {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };
-  }, [ids]);
+  }, [ids, enabled]);
 
   return active;
 }

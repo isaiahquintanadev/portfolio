@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Mail, Menu, X } from "lucide-react";
 
 import { useActiveSection } from "@/src/lib/useActiveSection";
@@ -18,8 +20,13 @@ const sectionIds = [...links.map((link) => link.id), "contact"];
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
-  const active = useActiveSection(sectionIds);
+  const activeSection = useActiveSection(sectionIds, isHome);
+  const active = isHome ? activeSection : pathname.startsWith("/proyectos") ? "projects" : null;
+  const linkHref = (href: string) => href === "#projects" ? "/proyectos" : isHome ? href : `/${href}`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +44,7 @@ export default function Navbar() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setOpen(false);
+        menuButton.current?.focus();
       }
     };
 
@@ -58,8 +66,8 @@ export default function Navbar() {
         className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5"
         aria-label="Navegación principal"
       >
-        <a
-          href="#"
+        <Link
+          href="/"
           onClick={closeMenu}
           className="group flex min-w-0 items-center gap-3 rounded-full focus:outline-none focus:ring-2 focus:ring-white/30"
           aria-label="Ir al inicio"
@@ -76,23 +84,24 @@ export default function Navbar() {
           </div>
           <div className="leading-tight">
             <span className="block text-sm font-semibold tracking-tight text-white">
-              Isaiah
+              Isaiah Quintana
             </span>
             <span className="hidden text-[11px] text-white/45 sm:block">
               Full-stack developer
             </span>
           </div>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] p-1 text-sm text-foreground/70 md:flex">
           {links.map((link) => {
             const isActive = active === link.id;
 
             return (
-              <a
+              <Link
                 key={link.href}
-                href={link.href}
-                aria-current={isActive ? "page" : undefined}
+                href={linkHref(link.href)}
+                onClick={closeMenu}
+                aria-current={isActive ? (link.id === "projects" ? "page" : "location") : undefined}
                 className={`rounded-full px-3.5 py-2 transition-colors ${
                   isActive
                     ? "bg-white text-slate-950"
@@ -100,14 +109,14 @@ export default function Navbar() {
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             );
           })}
         </div>
 
         <div className="flex items-center gap-2">
-          <a
-            href="#contact"
+          <Link
+            href={linkHref("#contact")}
             onClick={closeMenu}
             className={`hidden min-h-10 items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 md:inline-flex ${
               active === "contact"
@@ -117,9 +126,10 @@ export default function Navbar() {
           >
             <Mail size={16} />
             Contacto
-          </a>
+          </Link>
 
           <button
+            ref={menuButton}
             type="button"
             onClick={() => setOpen((current) => !current)}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-foreground transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 md:hidden"
@@ -134,6 +144,7 @@ export default function Navbar() {
 
       <div
         id="mobile-navigation"
+        inert={!open}
         className={`grid overflow-hidden border-white/10 transition-[grid-template-rows,border-color] duration-300 md:hidden ${
           open ? "grid-rows-[1fr] border-t" : "grid-rows-[0fr] border-t-0"
         }`}
@@ -146,11 +157,11 @@ export default function Navbar() {
                   const isActive = active === link.id;
 
                   return (
-                    <a
+                    <Link
                       key={link.href}
-                      href={link.href}
+                      href={linkHref(link.href)}
                       onClick={closeMenu}
-                      aria-current={isActive ? "page" : undefined}
+                      aria-current={isActive ? (link.id === "projects" ? "page" : "location") : undefined}
                       className={`flex min-h-12 items-center justify-between rounded-xl px-4 text-sm font-medium transition-colors ${
                         isActive
                           ? "bg-white text-slate-950"
@@ -161,7 +172,7 @@ export default function Navbar() {
                       {isActive && (
                         <span className="h-1.5 w-1.5 rounded-full bg-slate-950" />
                       )}
-                    </a>
+                    </Link>
                   );
                 },
               )}

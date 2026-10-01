@@ -16,19 +16,21 @@ import {
 
 import { fadeUp, fadeUpStagger } from "@/src/lib/animations";
 
-const email = "isaiahquintanadev@gmail.com";
+import { site } from "@/src/data/site";
+
+const email = site.email;
 
 const socialLinks = [
   {
     name: "LinkedIn",
     description: "Perfil profesional y contacto",
-    href: "https://www.linkedin.com/in/isaiah-quintana-serradilla-85a48723b/",
+    href: site.linkedin,
     icon: Linkedin,
   },
   {
     name: "GitHub",
     description: "Código, proyectos y actividad",
-    href: "https://github.com/isaiahquintanadev",
+    href: site.github,
     icon: Github,
   },
 ];

@@ -1,7 +1,5 @@
-"use client";
 
-import { motion } from "framer-motion";
-import { IconType } from "react-icons";
+import { type IconType } from "react-icons";
 import { GrOracle } from "react-icons/gr";
 import {
   SiDocker,
@@ -24,7 +22,6 @@ import {
   SiVercel,
 } from "react-icons/si";
 
-import { fadeUp, fadeUpStagger } from "@/src/lib/animations";
 
 type Tech = {
   name: string;
@@ -88,7 +85,7 @@ export default function TechStack() {
   return (
     <section id="tech" className="py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <motion.div {...fadeUp} className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center">
           <span className="text-xs font-medium uppercase tracking-[0.24em] text-purple-300/80">
             Stack
           </span>
@@ -99,13 +96,12 @@ export default function TechStack() {
             Herramientas con las que construyo interfaces, backend, datos,
             integraciones y despliegues para productos web modernos.
           </p>
-        </motion.div>
+        </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {groups.map((group, groupIndex) => (
-            <motion.article
+          {groups.map((group) => (
+            <article
               key={group.title}
-              {...fadeUpStagger(groupIndex)}
               className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/45 p-5 backdrop-blur-sm"
             >
               <div
@@ -122,15 +118,13 @@ export default function TechStack() {
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-2.5">
-                  {group.items.map(({ name, icon: Icon, featured }, itemIndex) => (
-                    <motion.div
+                  {group.items.map(({ name, icon: Icon, featured }) => (
+                    <div
                       key={name}
-                      {...fadeUpStagger(itemIndex)}
-                      className={`group/tech transform-gpu inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-[transform,background-color,border-color] duration-200 md:hover:-translate-y-0.5 ${
-                        featured
+                      className={`group/tech transform-gpu inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-[transform,background-color,border-color] duration-200 md:hover:-translate-y-0.5 ${featured
                           ? "border-white/15 bg-white text-slate-950"
                           : "border-white/10 bg-white/[0.055] text-foreground/78 md:hover:bg-white/[0.09]"
-                      }`}
+                        }`}
                     >
                       <Icon
                         size={16}
@@ -141,21 +135,20 @@ export default function TechStack() {
                         }
                       />
                       {name}
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
 
-        <motion.div
-          {...fadeUpStagger(4)}
+        <div
           className="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 text-center text-sm leading-6 text-foreground/60"
         >
           Las tecnologías destacadas son las que más uso actualmente en mis
           proyectos personales y productos recientes.
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,9 +1,6 @@
-"use client";
 
-import { motion } from "framer-motion";
 import { Code2, Layers3, Rocket, Workflow } from "lucide-react";
 
-import { fadeUp, fadeUpStagger } from "@/src/lib/animations";
 
 const principles = [
   {
@@ -39,7 +36,7 @@ export default function About() {
   return (
     <section id="about" className="py-24 sm:py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <motion.div {...fadeUp} className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center">
           <span className="text-xs font-medium uppercase tracking-[0.24em] text-purple-300/80">
             Sobre mí
           </span>
@@ -52,11 +49,10 @@ export default function About() {
             llevó al desarrollo full-stack: construir herramientas útiles,
             claras y preparadas para usarse en escenarios reales.
           </p>
-        </motion.div>
+        </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <motion.div
-            {...fadeUpStagger(1)}
+          <div
             className="rounded-2xl border border-white/10 bg-slate-950/45 p-6 backdrop-blur-sm sm:p-7"
           >
             <div className="flex items-center gap-3">
@@ -92,10 +88,9 @@ export default function About() {
                 seguir mejorando.
               </p>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            {...fadeUpStagger(2)}
+          <div
             className="rounded-2xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm sm:p-7"
           >
             <h3 className="text-xl font-semibold text-white">
@@ -111,17 +106,16 @@ export default function About() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
-          {principles.map((item, index) => {
+          {principles.map((item) => {
             const Icon = item.icon;
 
             return (
-              <motion.div
+              <div
                 key={item.title}
-                {...fadeUpStagger(index)}
                 className="transform-gpu rounded-2xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm transition-[transform,background-color] duration-200 md:hover:-translate-y-1 md:hover:bg-white/[0.07]"
               >
                 <Icon className="text-purple-300/85" size={22} />
@@ -131,7 +125,7 @@ export default function About() {
                 <p className="mt-2 text-sm leading-6 text-foreground/60">
                   {item.description}
                 </p>
-              </motion.div>
+              </div>
             );
           })}
         </div>

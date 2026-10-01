@@ -5,70 +5,38 @@ import Navbar from "@/src/components/layout/Navbar";
 import "./globals.css";
 import BackToTopButton from "../components/ui/BackToTopButton";
 
-const inter = Inter({ subsets: ["latin"] });
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const siteName = "Isaiah Quintana | Full-stack Developer";
-const description =
-  "Portfolio de Isaiah Quintana, desarrollador full-stack especializado en Next.js, React, TypeScript, productos SaaS, dashboards, integraciones y aplicaciones web modernas.";
+import Footer from "@/src/components/layout/Footer";
+import JsonLd from "@/src/components/seo/JsonLd";
+import { site, isPreview } from "@/src/data/site";
+import { identitySchema } from "@/src/lib/seo";
 
+const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: siteName,
-    template: "%s | Isaiah Quintana",
-  },
-  description,
+  metadataBase: new URL(site.url),
+  title: { default: site.title, template: "%s | Isaiah Quintana" },
+  description: site.description,
   applicationName: "Portfolio Isaiah Quintana",
-  authors: [{ name: "Isaiah Quintana" }],
-  creator: "Isaiah Quintana",
-  publisher: "Isaiah Quintana",
-  keywords: [
-    "Isaiah Quintana",
-    "desarrollador full-stack",
-    "desarrollador Next.js",
-    "React",
-    "TypeScript",
-    "Tailwind CSS",
-    "portfolio desarrollador",
-    "Supabase",
-    "Stripe",
-    "Vercel",
-  ],
-  alternates: {
-    canonical: "/",
-  },
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  publisher: site.name,
   openGraph: {
-    title: siteName,
-    description,
-    url: "/",
-    siteName: "Portfolio Isaiah Quintana",
+    title: site.title,
+    description: site.description,
+    siteName: site.name,
     locale: "es_ES",
     type: "website",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Isaiah Quintana, desarrollador full-stack",
-      },
-    ],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: site.title }],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteName,
-    description,
+    title: site.title,
+    description: site.description,
     images: ["/opengraph-image"],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
+  robots: isPreview
+    ? { index: false, follow: true }
+    : { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
   category: "technology",
 };
 
@@ -78,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body
         className={`${inter.className} bg-[#0a0a0a] text-foreground antialiased`}
       >
@@ -88,8 +56,10 @@ export default function RootLayout({
         >
           Saltar al contenido
         </a>
+        <JsonLd data={identitySchema} />
         <Navbar />
         {children}
+        <Footer />
         <BackToTopButton />
         <Analytics />
       </body>

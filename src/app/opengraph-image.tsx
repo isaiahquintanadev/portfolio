@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
+import { publicProjects } from "@/src/data/projects";
 
-export const runtime = "edge";
+
 export const alt = "Isaiah Quintana, desarrollador full-stack";
 export const size = {
   width: 1200,
@@ -102,10 +103,10 @@ export default function Image() {
             color: "rgba(255,255,255,0.76)",
           }}
         >
-          {["PsicotestPol", "Alter Ego Experience", "Fast Image Convert"].map(
+          {publicProjects.slice(0, 3).map(
             (project) => (
               <div
-                key={project}
+                key={project.title}
                 style={{
                   border: "1px solid rgba(255,255,255,0.14)",
                   borderRadius: 999,
@@ -113,7 +114,7 @@ export default function Image() {
                   background: "rgba(255,255,255,0.06)",
                 }}
               >
-                {project}
+                {project.title}
               </div>
             ),
           )}

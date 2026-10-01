@@ -1,10 +1,7 @@
-"use client";
 
 import { BriefcaseBusiness, CheckCircle2, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
 
 import { experience } from "@/src/data/experience";
-import { fadeUp, fadeUpStagger } from "@/src/lib/animations";
 import { formatDate } from "@/src/lib/utils";
 
 function formatRange(start: Date, end?: Date) {
@@ -23,7 +20,7 @@ export default function Experience() {
   return (
     <section id="experience" className="py-24 sm:py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <motion.div {...fadeUp} className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center">
           <span className="text-xs font-medium uppercase tracking-[0.24em] text-purple-300/80">
             Experiencia
           </span>
@@ -35,18 +32,16 @@ export default function Experience() {
             sistemas, automatización y trabajo con productos que necesitan ser
             claros, útiles y sostenibles en el tiempo.
           </p>
-        </motion.div>
+        </div>
 
         <div className="relative mt-14 space-y-6 before:absolute before:left-4 before:top-3 before:hidden before:h-[calc(100%-1.5rem)] before:w-px before:bg-white/10 md:before:block">
-          {experience.map((job, index) => (
-            <motion.article
+          {experience.map((job) => (
+            <article
               key={`${job.company}-${job.role}`}
-              {...fadeUpStagger(index)}
-              className={`relative rounded-2xl border p-6 backdrop-blur-sm sm:p-7 md:ml-12 ${
-                job.featured
+              className={`relative rounded-2xl border p-6 backdrop-blur-sm sm:p-7 md:ml-12 ${job.featured
                   ? "border-white/15 bg-slate-950/60 shadow-2xl shadow-black/20"
                   : "border-white/10 bg-white/[0.045]"
-              }`}
+                }`}
             >
               <div className="absolute -left-[2.72rem] top-7 hidden h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-slate-950 text-white md:flex">
                 <BriefcaseBusiness size={16} />
@@ -130,7 +125,7 @@ export default function Experience() {
                   </div>
                 )}
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>
