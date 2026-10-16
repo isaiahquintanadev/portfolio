@@ -1,12 +1,8 @@
 import { ImageResponse } from "next/og";
-import { publicProjects } from "@/src/data/projects";
+import { site } from "@/src/data/site";
 
-
-export const alt = "Isaiah Quintana, desarrollador full-stack";
-export const size = {
-  width: 1200,
-  height: 630,
-};
+export const alt = "Isaiah Hub · Diseño y desarrollo web a medida en Bilbao · Isaiah Quintana";
+export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function Image() {
@@ -19,105 +15,31 @@ export default function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: 72,
-          color: "white",
-          background:
-            "radial-gradient(circle at 18% 18%, rgba(168, 85, 247, 0.42), transparent 34%), radial-gradient(circle at 82% 20%, rgba(59, 130, 246, 0.34), transparent 32%), linear-gradient(135deg, #020617 0%, #0f172a 52%, #111827 100%)",
-          fontFamily: "Inter, Arial, sans-serif",
+          padding: "58px 70px",
+          color: "#f8f6ff",
+          background: "#100d17",
+          fontFamily: "Arial, sans-serif",
+          borderLeft: "12px solid #b69aff",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 18,
-              fontSize: 28,
-              color: "rgba(255,255,255,0.72)",
-            }}
-          >
-            <div
-              style={{
-                width: 18,
-                height: 18,
-                borderRadius: 999,
-                background: "#6ee7b7",
-                boxShadow: "0 0 32px rgba(110, 231, 183, 0.85)",
-              }}
-            />
-            Portfolio personal
-          </div>
-
-          <div
-            style={{
-              border: "1px solid rgba(255,255,255,0.16)",
-              borderRadius: 999,
-              padding: "12px 22px",
-              fontSize: 24,
-              color: "rgba(255,255,255,0.72)",
-              background: "rgba(255,255,255,0.06)",
-            }}
-          >
-            Next.js · TypeScript · Producto
-          </div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontSize: 30, fontWeight: 700 }}>{site.brand}</span>
+          <span style={{ fontSize: 23, color: "#c4b8d9" }}>Bilbao · Bizkaia</span>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <h1
-            style={{
-              margin: 0,
-              maxWidth: 880,
-              fontSize: 82,
-              lineHeight: 0.95,
-              letterSpacing: 0,
-              fontWeight: 800,
-            }}
-          >
-            Isaiah Quintana
+        <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+          <h1 style={{ display: "flex", flexDirection: "column", margin: 0, fontSize: 72, lineHeight: 1.03, letterSpacing: -3, fontWeight: 700 }}>
+            <span>Tu negocio,</span>
+            <span style={{ color: "#c5abff" }}>su siguiente versión digital.</span>
           </h1>
-          <p
-            style={{
-              margin: 0,
-              maxWidth: 900,
-              fontSize: 34,
-              lineHeight: 1.25,
-              color: "rgba(255,255,255,0.72)",
-            }}
-          >
-            Desarrollador full-stack especializado en aplicaciones web modernas,
-            productos SaaS, dashboards e integraciones.
+          <p style={{ margin: 0, maxWidth: 930, fontSize: 28, lineHeight: 1.4, color: "#d3cbdc" }}>
+            Páginas web a medida, aplicaciones y software que responden a lo que necesitas.
           </p>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            gap: 16,
-            fontSize: 24,
-            color: "rgba(255,255,255,0.76)",
-          }}
-        >
-          {publicProjects.slice(0, 3).map(
-            (project) => (
-              <div
-                key={project.title}
-                style={{
-                  border: "1px solid rgba(255,255,255,0.14)",
-                  borderRadius: 999,
-                  padding: "12px 20px",
-                  background: "rgba(255,255,255,0.06)",
-                }}
-              >
-                {project.title}
-              </div>
-            ),
-          )}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid #3a3048", paddingTop: 24 }}>
+          <span style={{ fontSize: 24 }}>{site.name} · Desarrollador full-stack</span>
+          <span style={{ fontSize: 24, color: "#c5abff" }}>isaiahhub.com</span>
         </div>
       </div>
     ),

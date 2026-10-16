@@ -13,7 +13,7 @@ export const metadata = pageMetadata({
 
 export default function ProjectsPage() {
   return (
-    <main id="main-content" tabIndex={-1} className="mx-auto max-w-6xl px-6 pb-16 pt-32">
+    <main id="main-content" tabIndex={-1} className="site-container pb-24 pt-28 sm:pt-36">
       <JsonLd data={{
         "@context": "https://schema.org",
         "@graph": [
@@ -21,22 +21,25 @@ export default function ProjectsPage() {
           breadcrumbSchema([{ name: "Inicio", path: "/" }, { name: "Proyectos", path: "/proyectos" }]),
         ],
       }} />
-      <nav aria-label="Migas de pan" className="mb-8 text-sm text-white/70">
+      <nav aria-label="Migas de pan" className="mb-10 text-sm text-muted">
         <ol className="flex flex-wrap gap-2">
           <li><Link href="/" className="hover:text-white">Inicio</Link></li>
           <li aria-hidden="true">/</li>
           <li aria-current="page">Proyectos</li>
         </ol>
       </nav>
-      <div className="mb-12 max-w-3xl">
-        <p className="text-xs font-medium uppercase tracking-[0.24em] text-purple-200">Portfolio de Isaiah Quintana</p>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Proyectos de desarrollo web</h1>
-        <p className="mt-5 text-base leading-8 text-white/75">Aplicaciones, productos y webs que he desarrollado. En cada caso encontrarás el contexto del proyecto, mi participación y las decisiones técnicas que dieron forma a la solución.</p>
+      <div className="mb-14 max-w-3xl sm:mb-20">
+        <h1 className="section-title text-balance">Proyectos de desarrollo web</h1>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">De una web de negocio local a una plataforma a medida. Aquí puedes ver qué necesitaba cada proyecto, cómo lo resolví y el trabajo que hay detrás del resultado.</p>
       </div>
-      <ProjectGrid projects={publicProjects} headingLevel={2} />
-      <div className="mt-12 text-center">
-        <Link href="/#contact" className="inline-flex min-h-11 items-center rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-medium hover:bg-white/10">Cuéntame tu proyecto</Link>
-      </div>
+      <ProjectGrid projects={publicProjects} headingLevel={2} highlightFirst={false} />
+      <aside className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-white/10 pt-10 sm:flex-row sm:items-center" aria-labelledby="projects-contact">
+        <div>
+          <h2 id="projects-contact" className="text-2xl font-semibold tracking-tight">¿Qué necesitas construir?</h2>
+          <p className="mt-3 leading-7 text-muted">Cuéntame la idea y el contexto de tu negocio.</p>
+        </div>
+        <Link href="/#contact" className="button-primary shrink-0">Hablemos de tu proyecto</Link>
+      </aside>
     </main>
   );
 }

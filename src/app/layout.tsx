@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/src/components/layout/Navbar";
 import "./globals.css";
@@ -10,7 +10,14 @@ import JsonLd from "@/src/components/seo/JsonLd";
 import { site, isPreview } from "@/src/data/site";
 import { identitySchema } from "@/src/lib/seo";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = localFont({
+  src: "./fonts/inter-latin-variable.woff2",
+  weight: "100 900",
+  style: "normal",
+  variable: "--font-body",
+  display: "swap",
+});
+export const viewport: Viewport = { themeColor: "#0f172a" };
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: site.title, template: "%s | Isaiah Quintana" },
@@ -46,9 +53,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="es" data-scroll-behavior="smooth">
       <body
-        className={`${inter.className} bg-[#0a0a0a] text-foreground antialiased`}
+        className={`${inter.className} ${inter.variable} antialiased`}
       >
         <a
           href="#main-content"

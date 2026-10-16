@@ -1,134 +1,48 @@
-
 import Image from "next/image";
-import { ArrowDown, Code2, Mail } from "lucide-react";
-import { publicProjects } from "@/src/data/projects";
-
-const highlights = [
-  "Next.js",
-  "TypeScript",
-  "Supabase",
-  "Stripe",
-  "Producto",
-];
-
-const stats = [
-  { value: "Producto", label: "Aplicaciones para necesidades reales" },
-  { value: String(publicProjects.length), label: "Proyectos destacados" },
-  { value: "Full-stack", label: "Frontend, backend y despliegue" },
-];
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] items-center overflow-hidden px-6 pb-16 pt-32 sm:pb-20">
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.12fr_0.88fr]">
-        <div className="text-center lg:text-left">
-          <div
-            className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-foreground/75 backdrop-blur lg:mx-0"
-          >
-            <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_18px_rgba(110,231,183,0.9)]" />
-            Desarrollador full-stack orientado a producto
+    <section aria-labelledby="hero-title" className="hero-section">
+      <div className="site-container">
+        <div className="grid items-center gap-12 lg:grid-cols-[1fr_300px] lg:gap-16">
+          <div>
+            <p className="mb-6 text-sm font-medium text-[var(--brand)] sm:text-base">
+              Isaiah Quintana, desarrollador full-stack
+            </p>
+            <h1 id="hero-title" className="hero-title">
+              Páginas web y aplicaciones a la altura de tu negocio.
+            </h1>
+            <p className="mt-7 max-w-xl text-base leading-8 text-muted sm:text-lg">
+              Diseño y desarrollo soluciones digitales a medida para empresas,
+              autónomos y negocios. Una identidad propia, una experiencia clara
+              y la tecnología que tu proyecto necesita.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <a href="#contact" className="button-primary">
+                Hablemos de tu proyecto <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
+              <a href="#projects" className="button-secondary">
+                Ver proyectos <ArrowDown size={17} aria-hidden="true" />
+              </a>
+            </div>
+            <p className="mt-6 text-sm leading-6 text-muted">
+              Desarrollo web en Bilbao y Bizkaia. También trabajo a distancia.
+            </p>
           </div>
-
-          <h1
-            className="mt-7 text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
-          >
-            Isaiah Quintana
-          </h1>
-
-          <p
-            className="mx-auto mt-6 max-w-2xl text-base leading-8 text-foreground/68 sm:text-lg lg:mx-0"
-          >
-            Construyo aplicaciones web modernas con Next.js, TypeScript y
-            arquitecturas limpias. Me centro en convertir ideas en productos
-            rápidos, mantenibles y agradables de usar.
-          </p>
-
-          <div
-            className="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start"
-          >
-            <a
-              href="#projects"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/40"
-            >
-              Ver proyectos
-              <ArrowDown size={17} />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-6 py-3 text-sm font-semibold text-foreground/90 backdrop-blur transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
-            >
-              Contactar
-              <Mail size={17} />
-            </a>
-          </div>
-
-          <div
-            className="mt-7 flex flex-wrap justify-center gap-2 lg:justify-start"
-          >
-            {highlights.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5 text-xs text-foreground/70"
-              >
-                {item}
-              </span>
-            ))}
+          <div className="hero-portrait hidden lg:block">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[45%] rounded-b-[12px] bg-white">
+              <Image src="/avatar.jpeg" alt="Retrato ilustrado de Isaiah Quintana" fill sizes="300px" className="object-cover object-[center_25%]" />
+            </div>
+            <p className="mt-5 text-base font-medium">Una idea. Un desarrollo a medida.</p>
+            <p className="mt-2 text-sm leading-6 text-muted">Trato directo conmigo, desde la primera conversación hasta la entrega.</p>
           </div>
         </div>
-
-        <div
-          className="relative mx-auto w-full max-w-sm lg:max-w-md"
-        >
-          <div
-            aria-hidden="true"
-            className="absolute -inset-5 hidden rounded-[2rem] bg-[radial-gradient(circle_at_30%_20%,rgba(168,85,247,0.2),transparent_42%),radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.16),transparent_40%)] blur-xl sm:block"
-          />
-
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/60 p-3 shadow-2xl shadow-black/30 backdrop-blur-xl">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-[linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02)),radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.12),transparent_38%)]">
-              <Image
-                src="/avatar.jpeg"
-                alt="Retrato ilustrado de Isaiah Quintana"
-                fill
-                priority
-                sizes="(min-width: 1024px) 420px, 80vw"
-                className="object-cover object-[center_18%]"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-transparent"
-              />
-            </div>
-
-            <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/10 bg-slate-950/70 p-4 backdrop-blur-md">
-              <div className="flex items-center gap-3">
-                <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-slate-950">
-                  <Code2 size={18} />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-white">
-                    Desarrollo productos web
-                  </p>
-                  <p className="mt-0.5 text-xs text-white/55">
-                    UI, backend, datos e integraciones
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        className="absolute bottom-6 left-1/2 hidden w-full max-w-6xl -translate-x-1/2 px-6 sm:block"
-      >
-        <div className="grid gap-3 border-t border-white/10 pt-5 sm:grid-cols-3">
-          {stats.map((stat) => (
-            <div key={stat.label}>
-              <p className="text-lg font-semibold text-white">{stat.value}</p>
-              <p className="mt-1 text-xs text-white/45">{stat.label}</p>
-            </div>
-          ))}
+        <div className="mt-14 flex flex-col justify-between gap-4 border-t border-white/15 pt-6 text-sm sm:flex-row sm:gap-8 lg:mt-16">
+          <p className="text-muted">Diseño cuidado. Desarrollo de principio a fin.</p>
+          <a href="#services" className="inline-flex min-h-11 items-center gap-2 self-start text-[var(--brand)] hover:text-white sm:-mt-3">
+            Descubre cómo puedo ayudarte <ArrowDown size={16} aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>

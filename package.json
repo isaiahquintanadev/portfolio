@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "verify:seo": "node scripts/verify-seo.mjs"
+    "verify:seo": "node scripts/verify-seo.mjs",
+    "verify:browser": "node scripts/verify-browser.mjs",
+    "verify:accessibility": "node scripts/verify-accessibility.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

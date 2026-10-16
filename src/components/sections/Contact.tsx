@@ -1,217 +1,67 @@
-"use client";
+import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-  ArrowUpRight,
-  BriefcaseBusiness,
-  Check,
-  Copy,
-  Github,
-  Linkedin,
-  Mail,
-  MessageSquare,
-  Sparkles,
-} from "lucide-react";
-
-import { fadeUp, fadeUpStagger } from "@/src/lib/animations";
-
+import ContactActions from "@/src/components/ui/ContactActions";
 import { site } from "@/src/data/site";
 
-const email = site.email;
-
-const socialLinks = [
-  {
-    name: "LinkedIn",
-    description: "Perfil profesional y contacto",
-    href: site.linkedin,
-    icon: Linkedin,
-  },
-  {
-    name: "GitHub",
-    description: "Código, proyectos y actividad",
-    href: site.github,
-    icon: Github,
-  },
-];
-
-const opportunities = [
-  "Desarrollo full-stack con Next.js y TypeScript",
-  "MVPs, SaaS y productos web",
-  "Dashboards, paneles internos y automatizaciones",
-  "Integraciones con pagos, emails, datos y APIs",
-];
-
-const workingStyle = [
-  "Comunicación clara",
-  "Código mantenible",
-  "Mentalidad de producto",
-];
+const emailSubject = encodeURIComponent("Consulta sobre un proyecto web");
+const emailBody = encodeURIComponent(
+  "Hola, Isaiah:\n\nMe gustaría hablar contigo sobre un proyecto.\n\nQué necesito:\nObjetivo del proyecto:\nPlazos orientativos:\n\nGracias.",
+);
 
 export default function Contact() {
-  const [copied, setCopied] = useState(false);
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(email);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
-    } catch {
-      setCopied(false);
-    }
-  };
-
   return (
-    <section id="contact" className="py-24 sm:py-28">
-      <div className="mx-auto max-w-6xl px-6">
-        <motion.div {...fadeUp} className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-medium uppercase tracking-[0.24em] text-purple-300/80">
-            Contacto
-          </span>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-            ¿Construimos algo útil?
-          </h2>
-          <p className="mt-5 text-sm leading-7 text-foreground/65 sm:text-base">
-            Estoy abierto a oportunidades donde pueda aportar como desarrollador
-            full-stack: productos web, herramientas internas, automatizaciones,
-            SaaS, dashboards o integraciones que necesiten criterio técnico y
-            buena experiencia de usuario.
+    <section id="contact" className="section-shell" aria-labelledby="contact-heading">
+      <div className="site-container">
+        <div className="rounded-[20px] border border-white/15 bg-[#151e32] px-6 py-10 sm:px-10 sm:py-14 lg:px-14">
+          <p className="text-sm font-medium text-[var(--brand)]">
+            Hablemos de tu proyecto
           </p>
-        </motion.div>
-
-        <div className="mt-12 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <motion.div
-            {...fadeUpStagger(1)}
-            className="rounded-2xl border border-white/10 bg-slate-950/55 p-6 backdrop-blur-sm sm:p-7"
-          >
-            <div className="flex items-start gap-4">
-              <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-slate-950">
-                <BriefcaseBusiness size={19} />
+          <div className="mt-5 grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
+            <div>
+              <h2 id="contact-heading" className="max-w-2xl text-balance text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+                Tu próximo proyecto empieza con una conversación.
+              </h2>
+              <p className="text-muted mt-6 max-w-xl text-base leading-7">
+                Cuéntame qué necesita tu negocio: una web, una aplicación o una
+                herramienta a medida. Podemos definir el alcance y valorar cómo
+                llevarlo a la práctica.
+              </p>
+            </div>
+            <div className="flex flex-col items-start lg:justify-end">
+              <p className="text-muted max-w-sm text-sm leading-6">
+                Incluye una breve descripción, el objetivo y los plazos que
+                tienes en mente. También puedes escribirme para una colaboración
+                u oportunidad profesional.
+              </p>
+              <p id="contact-email" tabIndex={-1} className="mt-6 max-w-full break-all text-base font-medium text-[#f5f5fa] sm:text-lg">
+                {site.email}
+              </p>
+              <div className="mt-5 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
+                <a
+                  href={`mailto:${site.email}?subject=${emailSubject}&body=${emailBody}`}
+                  className="button-primary"
+                >
+                  Hablemos por email
+                  <ArrowUpRight size={18} aria-hidden="true" />
+                </a>
+                <ContactActions email={site.email} emailElementId="contact-email" />
               </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white">
-                  Disponible para colaborar
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-foreground/60">
-                  Me interesan proyectos donde pueda participar tanto en la
-                  parte visual como en la lógica, datos, integraciones y
-                  despliegue.
-                </p>
+              <p className="text-muted mt-3 text-xs leading-5">
+                El enlace abre tu aplicación de correo.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/10 pt-5">
+                <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 text-sm text-[#b5bed0] transition-colors hover:text-[#f5f5fa]">
+                  <Linkedin size={17} aria-hidden="true" />
+                  LinkedIn <span className="sr-only">(se abre en otra pestaña)</span>
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </a>
+                <a href={site.github} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 text-sm text-[#b5bed0] transition-colors hover:text-[#f5f5fa]">
+                  <Github size={17} aria-hidden="true" />
+                  GitHub <span className="sr-only">(se abre en otra pestaña)</span>
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </a>
               </div>
             </div>
-
-            <div className="mt-7 grid gap-3">
-              {opportunities.map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.045] px-4 py-3 text-sm text-foreground/72"
-                >
-                  <Sparkles className="h-4 w-4 shrink-0 text-purple-300/80" />
-                  {item}
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-7 flex flex-wrap gap-2">
-              {workingStyle.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/10 bg-black/10 px-3 py-1.5 text-xs text-foreground/55"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-
-          <div className="grid gap-4">
-            <motion.div
-              {...fadeUpStagger(0)}
-              className="rounded-2xl border border-white/15 bg-white p-5 text-slate-950 backdrop-blur-sm"
-            >
-              <div className="flex items-start gap-4">
-                <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white">
-                  <Mail size={19} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="font-semibold">Email</p>
-                  <p className="mt-1 text-sm text-slate-600">
-                    La forma más directa de hablar
-                  </p>
-                  <p className="mt-3 break-all text-sm font-medium text-slate-800">
-                    {email}
-                  </p>
-
-                  <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-                    <a
-                      href={`mailto:${email}`}
-                      className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-950/30"
-                    >
-                      Abrir correo
-                      <ArrowUpRight size={16} />
-                    </a>
-                    <button
-                      type="button"
-                      onClick={copyEmail}
-                      className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-950/20"
-                    >
-                      {copied ? "Copiado" : "Copiar email"}
-                      {copied ? <Check size={16} /> : <Copy size={16} />}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {socialLinks.map((link, index) => {
-              const Icon = link.icon;
-
-              return (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  {...fadeUpStagger(index + 1)}
-                  className="group transform-gpu rounded-2xl border border-white/10 bg-white/[0.045] p-5 text-white backdrop-blur-sm transition-[transform,background-color,border-color] duration-200 md:hover:-translate-y-1 md:hover:bg-white/[0.07]"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-black/10 text-white">
-                        <Icon size={19} />
-                      </div>
-                      <div>
-                        <p className="font-semibold">{link.name}</p>
-                        <p className="mt-1 text-sm text-white/50">
-                          {link.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    <ArrowUpRight className="h-5 w-5 shrink-0 text-white/55 transition-transform duration-200 md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5" />
-                  </div>
-                </motion.a>
-              );
-            })}
-
-            <motion.div
-              {...fadeUpStagger(3)}
-              className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 backdrop-blur-sm"
-            >
-              <div className="flex gap-4">
-                <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-black/10 text-white">
-                  <MessageSquare size={19} />
-                </div>
-                <div>
-                  <p className="font-semibold text-white">Qué puedes contarme</p>
-                  <p className="mt-2 text-sm leading-6 text-foreground/60">
-                    Una idea, una oferta, un problema técnico, una colaboración
-                    o una app que quieras llevar a producción. Con algo de
-                    contexto puedo responderte mejor y más rápido.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </div>

@@ -4,6 +4,10 @@ export const projects: Project[] = [
   {
     title: "PsicotestPol",
     slug: "psicotestpol",
+    category: "Plataforma SaaS",
+    summary: "Una plataforma de práctica para opositores: tests personalizados, simulacros y seguimiento del progreso en un mismo lugar.",
+    seoTitle: "PsicotestPol: plataforma de tests para opositores",
+    imageKind: "logo",
     imageAlt: "Logotipo de PsicotestPol",
     seoDescription: "Desarrollo full-stack de PsicotestPol: plataforma de práctica para opositores con tests personalizados, simulacros, estadísticas e integraciones.",
     description:
@@ -23,7 +27,6 @@ export const projects: Project[] = [
     status: "Live",
     image: "/projects/logo_header_dark.png",
     featured: true,
-    spotlight: true,
     metrics: [
       { value: "Tests", label: "Generación personalizada" },
       { value: "Simulacros", label: "Entrenamiento tipo examen" },
@@ -62,15 +65,36 @@ export const projects: Project[] = [
   {
     title: "Being Fit",
     slug: "being-fit",
+    category: "Web de negocio local",
+    summary: "Diseño y desarrollo web para un estudio fitness de mujeres en Bilbao, con su identidad de marca, clases y acceso a reservas.",
+    seoTitle: "Being Fit Bilbao: diseño y desarrollo web",
+    imageKind: "screenshot",
     imageAlt: "Captura de la web de Being Fit, Woman Fitness Studio",
     seoDescription: "Diseño y desarrollo de la web de Being Fit, un estudio fitness para mujeres en Bilbao, con clases, horarios, tarifas y acceso a reservas.",
     description:
-      "Web para Woman Fitness Studio, un estudio fitness para mujeres en Bilbao. Diseño y desarrollo responsive a partir de la identidad de marca, con clases, horarios y tarifas, recorridos hacia clase de prueba, WhatsApp y reservas, y SEO técnico y local.",
+      "Web para Woman Fitness Studio, un estudio fitness para mujeres en Bilbao. Diseño y desarrollo responsive a partir de la identidad de marca, con clases, horarios y tarifas, reservas integradas mediante un iframe proporcionado por Provis Sport, acceso a clase de prueba y WhatsApp, y SEO técnico y local.",
     tech: ["Next.js", "React", "TypeScript", "TailwindCSS", "Vercel"],
     href: "https://www.beingfit.es",
     status: "Client",
     image: "/projects/being-fit.webp",
+    previewImage: {
+      src: "/projects/being-fit-portada.webp",
+      alt: "Portada pública de Being Fit con la presentación del estudio fitness de Bilbao",
+    },
+    gallery: [
+      {
+        src: "/projects/being-fit-clases.webp",
+        alt: "Sección de clases de Being Fit con Be Fit y Be Funk y fotografía del equipamiento del estudio",
+        caption: "Presentación de las clases en la web pública de Being Fit.",
+      },
+      {
+        src: "/projects/being-fit-horarios.webp",
+        alt: "Selector de días y listado de horarios de clases de Being Fit",
+        caption: "Consulta de horarios por día. Captura del sitio publicado; la programación puede cambiar.",
+      },
+    ],
     featured: true,
+    spotlight: true,
     metrics: [
       { value: "Marca", label: "Identidad y recursos reales" },
       { value: "Conversión", label: "Clase de prueba y reservas" },
@@ -86,6 +110,7 @@ export const projects: Project[] = [
         "Presentación del estudio, clases y servicios.",
         "Consulta de horarios y tarifas.",
         "Flujos hacia clase de prueba, WhatsApp y reservas.",
+        "Reservas desde la web mediante un iframe proporcionado por Provis Sport.",
         "Identidad visual y fotografías reales de la marca.",
         "Diseño responsive para móvil y escritorio.",
       ],
@@ -99,6 +124,7 @@ export const projects: Project[] = [
         "Next.js y React para la estructura y los componentes de la web.",
         "TypeScript para mantener una base de código tipada.",
         "TailwindCSS para el diseño responsive y la adaptación visual de marca.",
+        "Integración del sistema de reservas de Provis Sport mediante el iframe proporcionado por la aplicación.",
         "Vercel para el despliegue, con configuración del dominio existente.",
       ],
       outcome:
@@ -108,6 +134,10 @@ export const projects: Project[] = [
   {
     title: "Alter Ego Experience",
     slug: "alter-ego-experience",
+    category: "Aplicación para eventos",
+    summary: "Gestión de participantes, validación con QR y un ranking en tiempo real para llevar la experiencia digital a un evento presencial.",
+    seoTitle: "Alter Ego Experience: aplicación para eventos",
+    imageKind: "logo",
     imageAlt: "Logotipo de Alter Ego Experience",
     seoDescription: "Desarrollo full-stack de Alter Ego Experience: gestión de participantes para eventos, importación desde Excel, validación QR y rankings en tiempo real.",
     description:
@@ -129,6 +159,17 @@ export const projects: Project[] = [
     href: "https://alteregoexperience.org",
     status: "Finished",
     image: "/projects/alterego-logo.png",
+    previewImage: {
+      src: "/projects/alter-ego-portada.webp",
+      alt: "Portada de la web pública de Alter Ego Experience con acceso a próximos eventos",
+    },
+    gallery: [
+      {
+        src: "/projects/alter-ego-eventos.webp",
+        alt: "Listado público de eventos de Alter Ego Experience con buscador y filtros de disponibilidad",
+        caption: "Listado de eventos, búsqueda y filtros de disponibilidad en la web pública de Alter Ego Experience.",
+      },
+    ],
     featured: true,
     metrics: [
       { value: "Realtime", label: "Ranking sincronizado" },
@@ -169,6 +210,10 @@ export const projects: Project[] = [
   {
     title: "Fast Image Convert",
     slug: "fast-image-convert",
+    category: "Herramienta web",
+    summary: "Un conversor de imágenes entre JPG, PNG, WEBP y AVIF, con un flujo sencillo y páginas específicas para cada conversión.",
+    seoTitle: "Fast Image Convert: conversor de imágenes web",
+    imageKind: "screenshot",
     imageAlt: "Captura de la herramienta Fast Image Convert",
     seoDescription: "Desarrollo de Fast Image Convert, una herramienta web de conversión de imágenes entre JPG, PNG, WEBP y AVIF con procesamiento mediante Sharp.",
     description:
@@ -177,6 +222,13 @@ export const projects: Project[] = [
     href: "https://fastimgconvert.vercel.app/",
     status: "Live",
     image: "/projects/fastimgconvert.png",
+    gallery: [
+      {
+        src: "/projects/fast-image-convert-jpg-webp.webp",
+        alt: "Herramienta de conversión JPG a WEBP de Fast Image Convert antes de seleccionar un archivo",
+        caption: "Página pública de conversión de JPG a WEBP, con selector de formato y área de carga vacía.",
+      },
+    ],
     metrics: [
       { value: "4 formatos", label: "JPG, PNG, WEBP y AVIF" },
       { value: "SEO", label: "Rutas dinámicas" },
@@ -212,7 +264,9 @@ export const projects: Project[] = [
   },
 ];
 
-export const publicProjects = projects.filter((project) => project.published !== false);
+export const publicProjects = projects
+  .filter((project) => project.published !== false)
+  .sort((a, b) => Number(Boolean(b.spotlight)) - Number(Boolean(a.spotlight)));
 
 const slugs = new Set<string>();
 for (const project of publicProjects) {

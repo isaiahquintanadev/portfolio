@@ -26,11 +26,23 @@ En otra terminal, ejecuta:
 npm run verify:seo
 ```
 
-La comprobación recorre el sitemap y valida respuestas HTTP, H1, canonicals, metadata, JSON-LD, enlaces internos, imágenes sociales, robots y 404. `SEO_CHECK_URL` permite elegir otra dirección local. No sustituye una revisión visual o mediciones reales de Core Web Vitals. No había una suite de tests previa.
+La comprobación recorre el sitemap y valida respuestas HTTP, H1, títulos y descripciones únicos, canonicals, Open Graph, JSON-LD y referencias, servicios visibles, enlaces y anclas, imágenes sociales, robots, 404 y redirección permanente de www. `SEO_CHECK_URL` permite elegir otra dirección local.
+
+También hay comprobaciones de navegador y accesibilidad:
+
+```bash
+npm run verify:browser
+npm run verify:accessibility
+```
+
+Requieren Playwright disponible en el entorno y Edge instalado (o `BROWSER_CHANNEL` para elegir otro canal). No se añade Playwright como dependencia de producción. Si se utiliza la instalación de `playwright-cli`, configura `PLAYWRIGHT_MODULE` con la ruta absoluta a su paquete `playwright-core`; también se admite una instalación local de `playwright`. La prueba de accesibilidad utiliza `axe-core`, disponible actualmente como dependencia transitiva de desarrollo. Si cambia el árbol de dependencias, habrá que proporcionar esta herramienta para repetir la auditoría.
+
+`BROWSER_CHECK_URL` permite cambiar el servidor. Se guardan capturas y resultados en `artifacts/`, excluido de Git. Las pruebas abarcan seis rutas a cinco anchuras, teclado, menú, contacto, contenido sin JavaScript y movimiento reducido. La auditoría axe y el contraste calculado no sustituyen una evaluación WCAG integral. Las mediciones locales de LCP/CLS no representan datos de usuarios reales ni una comparación de Lighthouse antes/después.
 
 ## Estructura
 
 - `src/data/site.ts`: dominio, nombre, email y perfiles públicos compartidos por SEO y contacto.
+- `src/data/services.ts`: servicios visibles y fuente de los datos estructurados Service.
 - `src/data/projects.ts`: contenido del catálogo.
 - `src/types/project.ts`: campos y tipos.
 - `src/components/projects/ProjectGrid.tsx`: tarjetas compartidas por home e índice.
@@ -39,7 +51,7 @@ La comprobación recorre el sitemap y valida respuestas HTTP, H1, canonicals, me
 - `src/app/proyectos/[slug]/social-image/route.tsx`: imágenes sociales generadas.
 - `src/lib/seo.ts`: metadata, URLs y datos estructurados.
 
-La home conserva las anclas `#about`, `#experience`, `#tech`, `#projects` y `#contact`. El contacto sigue utilizando email, GitHub y LinkedIn. No se crean páginas para duplicar estas secciones.
+La home conserva las anclas `#about`, `#experience`, `#tech`, `#projects` y `#contact`, y añade `#services` y `#process`. Los proyectos y los servicios preceden al perfil técnico. La experiencia y las tecnologías se exploran con desplegables nativos. El contacto utiliza email, GitHub y LinkedIn; no guarda datos ni simula un envío. Inter se incluye en `src/app/fonts/` con su licencia OFL, usando `next/font/local`, para compilar sin descargar fuentes.
 
 ## Añadir un proyecto
 
@@ -77,6 +89,8 @@ Plantilla para completar con información real (mantener `published: false` hast
 | `seoTitle` | Título conciso sin el sufijo de autor; por defecto usa `title`. |
 | `seoDescription` | Descripción natural de la participación; idealmente 140–160 caracteres sin forzar la longitud. Por defecto usa `description`. |
 | `image`, `imageAlt` | Imagen principal y alt real: distingue captura y logotipo. Sin imagen se omite el bloque. |
+| `imageKind`, `previewImage` | `logo` o `screenshot` adapta el encuadre. Una `previewImage: { src, alt }` permite mostrar la interfaz conservando el logotipo original. |
+| `category`, `summary` | Sector/tipo de solución y resumen breve para el listado. |
 | `ogImage` | Ruta local o URL HTTPS de una imagen social propia, idealmente 1200 × 630. Por defecto se genera una imagen con título, resumen y tecnologías. |
 | `href`, `repo` | Web pública y repositorio, únicamente si pueden compartirse. |
 | `access` | `public` o `private`: indica si la plataforma enlazada exige acceso privado. Es independiente de la publicación de la ficha. |
@@ -86,13 +100,13 @@ Plantilla para completar con información real (mantener `published: false` hast
 | `updatedAt` | Fecha real de actualización del contenido (`YYYY-MM-DD`) para el sitemap. Si falta se omite, sin inventarla. |
 | `fullDescription` | Párrafos adicionales sobre el proyecto. |
 | `caseStudy.challenges`, `.architecture`, `.outcome` | Retos, decisiones técnicas y resultado. Los bloques ausentes se omiten. |
-| `metrics` | Aspectos destacados con `value` y `label`. No presentes funcionalidades como resultados medidos. |
+| `metrics` | Campo anterior conservado en el catálogo; no se muestra en el nuevo diseño para evitar repetir funcionalidades como resultados medidos. |
 | `gallery` | Imágenes `{ src, alt, caption? }`. |
 | `links` | Enlaces asociados `{ label, href }`. |
 | `relatedSlugs` | Slugs relacionados de forma justificada. Solo enlaza fichas públicas existentes y distintas de la actual. |
-| `featured`, `spotlight` | Indicadores existentes; `spotlight` amplía la tarjeta. El array determina el orden. |
+| `featured`, `spotlight` | La home muestra `featured`; `spotlight` prioriza y amplía el proyecto en ella. El índice mantiene dos columnas en escritorio. |
 
-Al añadir un proyecto público se generan automáticamente **URL, metadata, canonical, Open Graph, tarjeta de X, imagen social, JSON-LD, tarjeta en home e índice y entrada del sitemap**. Todas las fichas enlazan al índice y contacto. La imagen social de la home muestra hasta tres nombres para mantener su composición.
+Al añadir un proyecto público se generan automáticamente **URL, metadata, canonical, Open Graph, tarjeta de X, imagen social, JSON-LD, entrada del índice y sitemap**. Añade `featured: true` para mostrarlo en la home. Todas las fichas enlazan al índice, contacto y otros casos relacionados. La imagen social de la home presenta la marca y los servicios.
 
 ## SEO y pasos después del despliegue
 
@@ -100,7 +114,7 @@ El dominio oficial se define en `src/data/site.ts`; ya no depende de `NEXT_PUBLI
 
 Se conserva **Vercel Analytics**, que ya estaba integrado. No se añaden herramientas de tracking ni dependencias.
 
-1. Comprueba que `https://isaiahhub.com` sirve la versión nueva. Configura en Vercel el dominio principal y la redirección permanente de `www` si utilizas ese alias. No se han cambiado DNS ni dominios externos.
+1. Comprueba que `https://isaiahhub.com` sirve la versión nueva. El código incluye redirección 308 de www a sin www conservando ruta y parámetros. La publicación inspeccionada ya redirigía entre hosts; comprueba la coherencia con Vercel después de publicar. No se han cambiado DNS ni dominios externos.
 2. Añade la propiedad de dominio **`isaiahhub.com`** en Google Search Console y verifica mediante el TXT DNS que Google proporcione. Como alternativa para una propiedad de prefijo de URL, configura `GOOGLE_SITE_VERIFICATION` con el contenido del token HTML y vuelve a desplegar. No hace falta si verificas por DNS.
 3. Envía **`https://isaiahhub.com/sitemap.xml`** en Sitemaps.
 4. Inspecciona la home y las fichas, comprueba indexabilidad y solicita indexación si procede.
@@ -111,6 +125,8 @@ Referencia oficial: [empezar con Search Console](https://developers.google.com/s
 
 ## Contenido que conviene completar
 
-Los cuatro casos reutilizan información existente, incluido **Alter Ego Experience**. Para enriquecerlos aporta el año, cliente/marca que se puede citar, capturas relevantes, detalle de tu participación y resultados verificables. Los enlaces se han comprobado: PsicotestPol lleva actualmente a una plataforma con acceso privado; confirma cuándo vuelve a estar públicamente disponible. No hacen falta cifras inventadas para publicar un buen caso.
+Los cuatro casos reutilizan información existente, incluido **Alter Ego Experience**. Se han añadido seis capturas reales de las webs públicas de Being Fit, Alter Ego y Fast Image Convert. No representan pantallas internas de administración. PsicotestPol mantiene el logotipo porque la plataforma es privada: las futuras capturas de su interfaz deberán estar autorizadas y sin datos personales. Se pueden completar años y resultados verificables si están disponibles.
 
 Auditoría y límites de validación: [docs/seo-audit.md](docs/seo-audit.md).
+
+Revisión de esta iteración: [docs/optimization-2026-10-16.md](docs/optimization-2026-10-16.md).

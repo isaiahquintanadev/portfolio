@@ -26,6 +26,8 @@ export type Project = {
   slug: string;
   title: string;
   description: string;
+  summary?: string; // Resumen para el listado; la ficha conserva la descripción completa.
+  category?: string;
   tech: string[]; // Ejemplo: ["Next.js", "TypeScript", "Tailwind", "MDX"]
   href?: string; // Ejemplo: "https://myblog.com"
   access?: "public" | "private"; // Acceso a la plataforma enlazada, no a la ficha.
@@ -33,6 +35,8 @@ export type Project = {
   status?: ProjectStatus;
   image?: string; // Ejemplo: "/projects/blog.png"
   imageAlt?: string;
+  imageKind?: "logo" | "screenshot";
+  previewImage?: { src: string; alt: string }; // Captura real alternativa al logotipo.
   ogImage?: string; // Imagen social de 1200 × 630; por defecto se genera una.
   seoTitle?: string; // Sin el sufijo "| Isaiah Quintana".
   seoDescription?: string;

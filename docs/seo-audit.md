@@ -1,5 +1,7 @@
 ﻿# Auditoría SEO — 1 de octubre de 2026
 
+Documento histórico de la iteración anterior. La revisión del 16 de octubre está en [optimization-2026-10-16.md](optimization-2026-10-16.md); allí se distinguen las capacidades ya existentes de los cambios actuales.
+
 ## Situación inicial
 
 - Next.js 16.1.6, App Router, React 19.2.3, TypeScript estricto y Tailwind CSS 4. Una ruta de contenido (`/`) organizada por anclas.

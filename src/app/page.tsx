@@ -5,12 +5,14 @@ import Hero from "@/src/components/sections/Hero";
 import Projects from "@/src/components/sections/Projects";
 import TechStack from "@/src/components/sections/TechStack";
 import type { Metadata } from "next";
-import { absoluteUrl, site } from "@/src/data/site";
+import { site } from "@/src/data/site";
 import JsonLd from "@/src/components/seo/JsonLd";
-import { pageMetadata } from "@/src/lib/seo";
+import { homeSchema, pageMetadata } from "@/src/lib/seo";
+import Services from "@/src/components/sections/Services";
+import Process from "@/src/components/sections/Process";
 
 const homeMetadata = pageMetadata({
-  title: "Desarrollador full-stack",
+  title: "Diseño y desarrollo web en Bilbao",
   description: site.description,
   path: "/",
 });
@@ -25,12 +27,14 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main id="main-content" tabIndex={-1}>
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "ProfilePage", "@id": site.url + "/#webpage", url: absoluteUrl("/"), name: site.title, mainEntity: { "@id": site.url + "/#person" }, isPartOf: { "@id": site.url + "/#website" } }} />
+      <JsonLd data={homeSchema} />
       <Hero />
+      <Projects />
+      <Services />
+      <Process />
       <About />
       <Experience />
       <TechStack />
-      <Projects />
       <Contact />
     </main>
   );

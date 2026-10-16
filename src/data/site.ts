@@ -1,9 +1,10 @@
 export const site = {
   url: "https://isaiahhub.com",
   name: "Isaiah Quintana",
-  title: "Isaiah Quintana | Desarrollador full-stack",
+  brand: "Isaiah Hub",
+  title: "Diseño y desarrollo web en Bilbao | Isaiah Quintana",
   description:
-    "Soy Isaiah Quintana, desarrollador full-stack. Diseño y desarrollo aplicaciones web, productos SaaS e integraciones con Next.js, React y TypeScript.",
+    "Páginas web a medida, aplicaciones y software para negocios en Bilbao y Bizkaia. Soy Isaiah Quintana: diseño y desarrollo tu proyecto de principio a fin.",
   email: "isaiahquintanadev@gmail.com",
   github: "https://github.com/isaiahquintanadev",
   linkedin: "https://www.linkedin.com/in/isaiah-quintana-serradilla-85a48723b/",

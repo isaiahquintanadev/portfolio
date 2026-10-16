@@ -4,180 +4,88 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mail, Menu, X } from "lucide-react";
-
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useActiveSection } from "@/src/lib/useActiveSection";
 
 const links = [
-  { href: "#about", label: "Sobre mí", id: "about" },
-  { href: "#experience", label: "Experiencia", id: "experience" },
-  { href: "#tech", label: "Tecnologías", id: "tech" },
   { href: "#projects", label: "Proyectos", id: "projects" },
+  { href: "#services", label: "Servicios", id: "services" },
+  { href: "#process", label: "Proceso", id: "process" },
+  { href: "#about", label: "Sobre mí", id: "about" },
 ];
-
 const sectionIds = [...links.map((link) => link.id), "contact"];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
+  const header = useRef<HTMLElement>(null);
   const pathname = usePathname();
   const isHome = pathname === "/";
-
   const activeSection = useActiveSection(sectionIds, isHome);
   const active = isHome ? activeSection : pathname.startsWith("/proyectos") ? "projects" : null;
-  const linkHref = (href: string) => href === "#projects" ? "/proyectos" : isHome ? href : `/${href}`;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const linkHref = (href: string) => !isHome && href === "#projects" ? "/proyectos" : isHome ? href : `/${href}`;
 
   useEffect(() => {
     if (!open) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setOpen(false);
         menuButton.current?.focus();
       }
     };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    const closeOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !header.current?.contains(event.target)) setOpen(false);
+    };
+    const closeOnFocusOutside = (event: FocusEvent) => {
+      if (event.target instanceof Node && !header.current?.contains(event.target)) setOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("pointerdown", closeOutside);
+    window.addEventListener("focusin", closeOnFocusOutside);
+    return () => {
+      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("pointerdown", closeOutside);
+      window.removeEventListener("focusin", closeOnFocusOutside);
+    };
   }, [open]);
 
-  const closeMenu = () => setOpen(false);
-
   return (
-    <header
-      className={`fixed left-0 top-0 z-50 w-full border-b transition-colors duration-300 ${
-        scrolled || open
-          ? "border-white/10 bg-slate-950/82 shadow-lg shadow-black/10 backdrop-blur-xl"
-          : "border-transparent bg-slate-950/35 backdrop-blur-md"
-      }`}
-    >
-      <nav
-        className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5"
-        aria-label="Navegación principal"
-      >
-        <Link
-          href="/"
-          onClick={closeMenu}
-          className="group flex min-w-0 items-center gap-3 rounded-full focus:outline-none focus:ring-2 focus:ring-white/30"
-          aria-label="Ir al inicio"
-        >
-          <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-white/10 bg-white/5">
-            <Image
-              src="/avatar.jpeg"
-              alt=""
-              width={40}
-              height={40}
-              className="h-full w-full object-cover object-[center_30%]"
-              priority
-            />
-          </div>
-          <div className="leading-tight">
-            <span className="block text-sm font-semibold tracking-tight text-white">
-              Isaiah Quintana
-            </span>
-            <span className="hidden text-[11px] text-white/45 sm:block">
-              Full-stack developer
-            </span>
-          </div>
+    <header ref={header} className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0f172a]/95 backdrop-blur-md">
+      <nav className="site-container flex h-20 items-center justify-between gap-4" aria-label="Navegación principal">
+        <Link href="/" onClick={() => setOpen(false)} className="inline-flex min-h-11 shrink-0 items-center gap-3 rounded-lg" aria-label="Isaiah Hub, inicio">
+          <Image src="/avatar.jpeg" alt="" width={40} height={40} className="h-10 w-10 rounded-full object-cover object-[center_25%]" />
+          <span className="leading-tight">
+            <span className="block text-base font-semibold tracking-tight">Isaiah Hub<span className="text-[var(--brand)]">.</span></span>
+            <span className="mt-1 block text-xs text-muted">Isaiah Quintana</span>
+          </span>
         </Link>
-
-        <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] p-1 text-sm text-foreground/70 md:flex">
-          {links.map((link) => {
-            const isActive = active === link.id;
-
-            return (
-              <Link
-                key={link.href}
-                href={linkHref(link.href)}
-                onClick={closeMenu}
-                aria-current={isActive ? (link.id === "projects" ? "page" : "location") : undefined}
-                className={`rounded-full px-3.5 py-2 transition-colors ${
-                  isActive
-                    ? "bg-white text-slate-950"
-                    : "text-foreground/68 hover:bg-white/[0.07] hover:text-foreground"
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+        <div className="hidden items-center gap-1 md:flex">
+          {links.map((link) => (
+            <Link key={link.id} href={linkHref(link.href)} onClick={() => setOpen(false)}
+              aria-current={active === link.id ? (isHome ? "location" : "page") : undefined}
+              className={`inline-flex min-h-11 items-center rounded-lg px-3 text-sm hover:bg-white/5 hover:text-white ${active === link.id ? "text-[var(--brand)]" : "text-muted"}`}>
+              {link.label}
+            </Link>
+          ))}
         </div>
-
-        <div className="flex items-center gap-2">
-          <Link
-            href={linkHref("#contact")}
-            onClick={closeMenu}
-            className={`hidden min-h-10 items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 md:inline-flex ${
-              active === "contact"
-                ? "bg-white text-slate-950"
-                : "border border-white/10 bg-white/[0.06] text-foreground/85 hover:bg-white/10"
-            }`}
-          >
-            <Mail size={16} />
-            Contacto
-          </Link>
-
-          <button
-            ref={menuButton}
-            type="button"
-            onClick={() => setOpen((current) => !current)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-foreground transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 md:hidden"
-            aria-label={open ? "Cerrar menú" : "Abrir menú"}
-            aria-expanded={open}
-            aria-controls="mobile-navigation"
-          >
-            {open ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
+        <Link href={linkHref("#contact")} onClick={() => setOpen(false)} className="button-primary hidden md:inline-flex">
+          Hablemos <ArrowUpRight size={16} aria-hidden="true" />
+        </Link>
+        <button ref={menuButton} type="button" onClick={() => setOpen((current) => !current)}
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/20 hover:bg-white/10 md:hidden"
+          aria-label={open ? "Cerrar menú" : "Abrir menú"} aria-expanded={open} aria-controls="mobile-navigation">
+          {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+        </button>
       </nav>
-
-      <div
-        id="mobile-navigation"
-        inert={!open}
-        className={`grid overflow-hidden border-white/10 transition-[grid-template-rows,border-color] duration-300 md:hidden ${
-          open ? "grid-rows-[1fr] border-t" : "grid-rows-[0fr] border-t-0"
-        }`}
-      >
-        <div className="min-h-0">
-          <div className="px-6 pb-5 pt-2">
-            <div className="rounded-2xl border border-white/10 bg-slate-950/92 p-2 shadow-2xl shadow-black/20 backdrop-blur-xl">
-              {[...links, { href: "#contact", label: "Contacto", id: "contact" }].map(
-                (link) => {
-                  const isActive = active === link.id;
-
-                  return (
-                    <Link
-                      key={link.href}
-                      href={linkHref(link.href)}
-                      onClick={closeMenu}
-                      aria-current={isActive ? (link.id === "projects" ? "page" : "location") : undefined}
-                      className={`flex min-h-12 items-center justify-between rounded-xl px-4 text-sm font-medium transition-colors ${
-                        isActive
-                          ? "bg-white text-slate-950"
-                          : "text-foreground/78 hover:bg-white/[0.07] hover:text-foreground"
-                      }`}
-                    >
-                      {link.label}
-                      {isActive && (
-                        <span className="h-1.5 w-1.5 rounded-full bg-slate-950" />
-                      )}
-                    </Link>
-                  );
-                },
-              )}
-            </div>
-          </div>
+      <div id="mobile-navigation" hidden={!open} className="max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-white/10 bg-[#0f172a] md:hidden">
+        <div className="site-container grid gap-1 py-4">
+          {[...links, { href: "#contact", label: "Hablemos de tu proyecto", id: "contact" }].map((link) => (
+            <Link key={link.id} href={linkHref(link.href)} onClick={() => setOpen(false)}
+              aria-current={active === link.id ? (isHome ? "location" : "page") : undefined}
+              className={`flex min-h-12 items-center rounded-lg px-3 text-base hover:bg-white/5 ${active === link.id ? "text-[var(--brand)]" : "text-white"}`}>
+              {link.label}
+            </Link>
+          ))}
         </div>
       </div>
     </header>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl, site } from "@/src/data/site";
+import { services } from "@/src/data/services";
 import type { Project } from "@/src/types/project";
 
 export function pageMetadata({
@@ -22,7 +23,7 @@ export function pageMetadata({
       title: fullTitle,
       description,
       url: absoluteUrl(path),
-      siteName: site.name,
+      siteName: site.brand,
       locale: "es_ES",
       type: "website",
       images: [{ url: absoluteUrl(image), width: 1200, height: 630, alt: fullTitle }],
@@ -59,7 +60,8 @@ export const identitySchema = {
     {
       "@type": "WebSite",
       "@id": `${site.url}/#website`,
-      name: `Portfolio de ${site.name}`,
+      name: site.brand,
+      alternateName: [site.name, "Portfolio de Isaiah Quintana"],
       url: site.url,
       inLanguage: "es",
       publisher: { "@id": `${site.url}/#person` },
@@ -67,9 +69,43 @@ export const identitySchema = {
   ],
 };
 
+export const homeSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${site.url}/#webpage`,
+      url: absoluteUrl("/"),
+      name: site.title,
+      description: site.description,
+      inLanguage: "es",
+      isPartOf: { "@id": `${site.url}/#website` },
+      about: { "@id": `${site.url}/#person` },
+      mainEntity: services.map((service) => ({
+        "@id": `${site.url}/#service-${service.id}`,
+      })),
+    },
+    ...services.map((service) => ({
+      "@type": "Service",
+      "@id": `${site.url}/#service-${service.id}`,
+      name: service.title,
+      description: service.description,
+      serviceType: service.title,
+      url: absoluteUrl("/#services"),
+      provider: { "@id": `${site.url}/#person` },
+      areaServed: [
+        { "@type": "City", name: "Bilbao" },
+        { "@type": "AdministrativeArea", name: "Bizkaia" },
+      ],
+    })),
+  ],
+};
+
 export function breadcrumbSchema(items: { name: string; path: string }[]) {
+  const currentPath = items.at(-1)?.path ?? "/";
   return {
     "@type": "BreadcrumbList",
+    "@id": `${absoluteUrl(currentPath)}#breadcrumb`,
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -88,7 +124,7 @@ export function projectSchema(project: Project) {
         "@type": "WebPage",
         "@id": `${url}#webpage`,
         url,
-        name: `${project.title} | ${site.name}`,
+        name: `${project.seoTitle ?? project.title} | ${site.name}`,
         description: project.seoDescription ?? project.description,
         inLanguage: "es",
         isPartOf: { "@id": `${site.url}/#website` },
