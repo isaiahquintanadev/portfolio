@@ -47,7 +47,8 @@ export default function Contact() {
                 <ContactActions email={site.email} emailElementId="contact-email" />
               </div>
               <p className="text-muted mt-3 text-xs leading-5">
-                El enlace abre tu aplicación de correo.
+                El enlace abre tu aplicación de correo. Si no tienes una
+                configurada, copia la dirección y úsala en tu correo web.
               </p>
               <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/10 pt-5">
                 <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 text-sm text-[#b5bed0] transition-colors hover:text-[#f5f5fa]">

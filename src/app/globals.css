@@ -29,7 +29,6 @@ body {
 }
 h1, h2, h3 { text-wrap: balance; }
 p { text-wrap: pretty; }
-section[id], article[id] { scroll-margin-top: 6rem; }
 a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 button, summary { cursor: pointer; }
 :where(a, button, summary) {

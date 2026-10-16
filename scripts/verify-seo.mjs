@@ -36,6 +36,9 @@ async function pageHtml(path) {
     htmlCache.set(path, (async () => {
       const page = await fetch(new URL(path, base));
       assert.equal(page.status, 200, "Página no disponible: " + path);
+      if (!expectNoindex) {
+        assert(!/\b(?:noindex|none)\b/i.test(page.headers.get("x-robots-tag") ?? ""), "Cabecera que impide indexación: " + path);
+      }
       return page.text();
     })());
   }
@@ -77,7 +80,8 @@ for (const url of urls) {
   assert.equal(new URL(meta(html, "og:url")).href, url, "URL Open Graph incorrecta: " + path);
   assert.equal(meta(html, "og:title"), title, "Title Open Graph inconsistente: " + path);
   assert.equal(meta(html, "og:description"), description, "Description Open Graph inconsistente: " + path);
-  assert.equal(/\bnoindex\b/.test(meta(html, "robots") ?? ""), expectNoindex, "Indexabilidad incorrecta: " + path);
+  const noindex = [meta(html, "robots"), meta(html, "googlebot")].some((value) => /\b(?:noindex|none)\b/i.test(value ?? ""));
+  assert.equal(noindex, expectNoindex, "Indexabilidad incorrecta: " + path);
   assert.equal(meta(html, "twitter:card"), "summary_large_image");
 
   const schemas = [...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((match) => JSON.parse(match[1]));
@@ -107,12 +111,33 @@ for (const url of urls) {
   } else {
     const breadcrumb = entities.find((entity) => entity["@type"] === "BreadcrumbList");
     assert(breadcrumb?.["@id"], "Falta breadcrumb con @id: " + path);
+    assert(breadcrumb.itemListElement.length >= 2, "Google requiere al menos dos elementos en breadcrumbs: " + path);
     assert.equal(breadcrumb.itemListElement.at(-1).item, url);
     assert.equal(breadcrumb.itemListElement[0].item, canonicalOrigin + "/");
-    for (const [index, item] of breadcrumb.itemListElement.entries()) assert.equal(item.position, index + 1);
+    for (const [index, item] of breadcrumb.itemListElement.entries()) {
+      assert.equal(item.position, index + 1);
+      assert(item.name?.trim(), "Breadcrumb sin nombre: " + path);
+    }
   }
   if (path.startsWith("/proyectos/")) {
-    assert(entities.some((entity) => entity["@type"] === "CreativeWork"));
+    const work = entities.find((entity) => entity["@type"] === "CreativeWork");
+    assert(work, "Falta CreativeWork: " + path);
+    assert.equal(work.creator["@id"], canonicalOrigin + "/#person", "Autor del proyecto incorrecto: " + path);
+    const h1 = decodeHtml(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1].replace(/<[^>]+>/g, "") ?? "").trim();
+    assert.equal(work.name, h1, "El nombre del proyecto debe coincidir con el H1: " + path);
+    if (work.image) {
+      const imagePath = new URL(work.image).pathname;
+      const renderedImages = [...html.matchAll(/<img\b[^>]*>/gi)].map((match) => {
+        const src = attributes(match[0]).src;
+        if (!src) return null;
+        const address = new URL(src, base);
+        return address.searchParams.get("url") ?? address.pathname;
+      });
+      assert(renderedImages.includes(imagePath), "La imagen de CreativeWork no aparece en la ficha: " + path);
+      const image = await fetch(new URL(imagePath, base));
+      assert.equal(image.status, 200, "Imagen de CreativeWork no accesible: " + path);
+      assert(image.headers.get("content-type")?.startsWith("image/"));
+    }
     assert(html.includes('href="/#contact"'), "Falta contacto: " + path);
   }
 

@@ -12,13 +12,14 @@ export function useActiveSection(ids: string[], enabled = true) {
     const updateActiveSection = () => {
       frame = 0;
 
-      if (window.scrollY < 80) {
-        setActive((current) => (current === null ? current : null));
-        return;
-      }
+      // El mismo margen que utiliza el navegador al navegar a un ancla.
+      // Un píxel de tolerancia evita diferencias por redondeo del scroll.
+      const activationTop =
+        (Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0) + 1;
 
       const scrollBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
+        window.scrollY > 0 &&
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
 
       if (scrollBottom) {
         const last = ids[ids.length - 1];
@@ -26,7 +27,7 @@ export function useActiveSection(ids: string[], enabled = true) {
         return;
       }
 
-      let currentSection = ids[0];
+      let currentSection: string | null = null;
 
       for (const id of ids) {
         const element = document.getElementById(id);
@@ -34,7 +35,7 @@ export function useActiveSection(ids: string[], enabled = true) {
 
         const rect = element.getBoundingClientRect();
 
-        if (rect.top <= 128) {
+        if (rect.top <= activationTop) {
           currentSection = id;
         }
       }

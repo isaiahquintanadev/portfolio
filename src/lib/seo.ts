@@ -117,6 +117,7 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
 
 export function projectSchema(project: Project) {
   const url = absoluteUrl(projectPath(project));
+  const image = project.previewImage?.src ?? project.image;
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -138,7 +139,7 @@ export function projectSchema(project: Project) {
         description: project.description,
         url: project.href ?? url,
         creator: { "@id": `${site.url}/#person` },
-        ...(project.image ? { image: absoluteUrl(project.image) } : {}),
+        ...(image ? { image: absoluteUrl(image) } : {}),
       },
       {
         ...breadcrumbSchema([
