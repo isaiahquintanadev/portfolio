@@ -32,7 +32,7 @@ export default function ProjectsPage() {
         <h1 className="section-title text-balance">Proyectos de desarrollo web</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">De una web de negocio local a una plataforma a medida. Aquí puedes ver qué necesitaba cada proyecto, cómo lo resolví y el trabajo que hay detrás del resultado.</p>
       </div>
-      <ProjectGrid projects={publicProjects} headingLevel={2} highlightFirst={false} />
+      <ProjectGrid projects={publicProjects} headingLevel={2} />
       <aside className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-white/10 pt-10 sm:flex-row sm:items-center" aria-labelledby="projects-contact">
         <div>
           <h2 id="projects-contact" className="text-2xl font-semibold tracking-tight">¿Qué necesitas construir?</h2>

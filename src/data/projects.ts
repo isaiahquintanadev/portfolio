@@ -2,6 +2,102 @@ import { Project } from "@/src/types/project";
 
 export const projects: Project[] = [
   {
+    title: "Nexxo",
+    slug: "nexxo",
+    category: "Producto propio · Plataforma de eventos",
+    summary: "Mi plataforma para salas y organizadores: eventos, entradas con QR y una web con identidad propia, conectados desde un mismo panel.",
+    seoTitle: "Nexxo: plataforma de ticketing y gestión de eventos",
+    seoDescription: "Diseño y desarrollo full-stack de Nexxo, mi plataforma de eventos con entradas QR, panel de gestión y editor de webs personalizables.",
+    description:
+      "Nexxo es mi producto propio para salas, discotecas y promotoras. Reúne la gestión de eventos, las entradas digitales con QR y el control de acceso en una plataforma con web personalizable e integración en webs externas.",
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "TailwindCSS",
+      "Supabase",
+      "PostgreSQL",
+      "Stripe Connect",
+      "Resend",
+      "Vercel",
+    ],
+    href: "https://nexxotickets.com",
+    status: "WIP",
+    image: "/projects/nexxo-portada.webp",
+    imageKind: "screenshot",
+    imageAlt: "Portada de Nexxo con su identidad azul, presentación de la plataforma y vista de un evento de ejemplo",
+    featured: true,
+    spotlight: true,
+    year: 2026,
+    updatedAt: "2026-11-23",
+    relatedSlugs: ["alter-ego-experience", "psicotestpol"],
+    metrics: [
+      { value: "Producto propio", label: "Diseño y desarrollo full-stack" },
+      { value: "16 diseños", label: "Webs personalizables" },
+      { value: "QR", label: "Entradas y control de acceso" },
+    ],
+    fullDescription: [
+      "He trabajado Nexxo como un producto completo: desde los recorridos del organizador y del asistente hasta el diseño de la interfaz, la arquitectura de datos y las integraciones. La experiencia conecta la presentación pública de cada negocio con las herramientas que necesita su equipo para gestionar un evento.",
+      "Cada sala puede crear una web con su propia identidad o integrar los eventos en una web existente. El editor permite elegir entre dieciséis diseños, adaptar colores y tipografías, añadir contenido y previsualizar el resultado en móvil y escritorio antes de publicarlo.",
+      "La web pública está disponible y el producto continúa en desarrollo. Los flujos de pago se han integrado en entorno de pruebas con Stripe Connect; la venta con cobros reales sigue desactivada. Las capturas muestran la interfaz con contenido de ejemplo.",
+    ],
+    gallery: [
+      {
+        src: "/projects/nexxo-editor.webp",
+        alt: "Editor de Nexxo con configuración del negocio y vista previa de una web de eventos en escritorio",
+        caption: "Creación de una web en tres pasos, con personalización y vista previa antes del registro.",
+      },
+      {
+        src: "/projects/nexxo-disenos.webp",
+        alt: "Selección de diseños web de Nexxo con identidades visuales diferentes para salas y organizadores",
+        caption: "Dieciséis puntos de partida para que cada negocio mantenga una identidad visual propia.",
+      },
+      {
+        src: "/projects/nexxo-panel.webp",
+        alt: "Panel de Nexxo con navegación de eventos, ventas y control de acceso y guía de preparación de un negocio de prueba",
+        caption: "Panel del organizador: preparación del negocio, eventos, ventas y control de acceso. Datos de prueba.",
+      },
+      {
+        src: "/projects/nexxo-evento.webp",
+        alt: "Página de un evento de ejemplo con selección de entradas en Nexxo",
+        caption: "Experiencia pública del evento y selección de entradas, conectada con la gestión del organizador.",
+      },
+    ],
+    caseStudy: {
+      problem:
+        "Las salas y los organizadores necesitan presentar su programación, gestionar entradas y coordinar el acceso sin repartir el trabajo entre herramientas desconectadas ni renunciar a su identidad de marca.",
+      solution:
+        "Una plataforma que conecta el panel del organizador con la web del negocio, la agenda, las entradas y la puerta. La web y la carta digital son complementos opcionales; el ticketing también puede integrarse en una web externa.",
+      role:
+        "Producto propio. Definición de la experiencia, diseño de interfaces y desarrollo full-stack: editor visual, panel del organizador, modelo de datos multiempresa, permisos, integraciones, entradas QR y despliegue.",
+      features: [
+        "Creación y gestión de eventos, tipos de entrada, aforo, fases de venta, promociones y cortesías.",
+        "Editor web con dieciséis diseños, identidad por negocio, contenido propio y vista previa responsive.",
+        "Entradas nominativas con QR y pantalla de control de acceso preparada para móvil.",
+        "Historial de pedidos, estadísticas por evento y exportación de datos según permisos.",
+        "Equipos con roles de propietario, administración y personal de acceso, con asignación por evento.",
+        "Complementos de carta digital, reservados VIP y seguimiento de colaboradores de promoción.",
+        "Integración de eventos en webs externas y flujos de compra y devolución en Stripe Test.",
+      ],
+      challenges: [
+        "Mantener una experiencia sencilla para organizadores y asistentes sobre una aplicación con múltiples recorridos.",
+        "Separar los datos y permisos de cada negocio sin duplicar la plataforma.",
+        "Coordinar inventario, pedidos, pagos de prueba y validación QR ante reintentos o accesos simultáneos.",
+        "Dar libertad visual a cada negocio conservando una interfaz coherente para la gestión.",
+        "Distinguir los borradores privados del contenido publicado y las pruebas de la futura operación comercial.",
+      ],
+      architecture: [
+        "Next.js App Router, React y TypeScript para la web pública, el editor y los paneles en una única aplicación.",
+        "Supabase y PostgreSQL para autenticación, almacenamiento y datos multiempresa, con permisos en servidor y políticas RLS.",
+        "Stripe Connect y checkout alojado para el circuito de pagos de prueba, pedidos y devoluciones.",
+        "Resend para comunicaciones transaccionales y QR con validación de acceso en servidor.",
+        "TailwindCSS, recursos de marca locales y Vercel para la presentación y el despliegue.",
+      ],
+      outcome:
+        "Un producto propio con web pública y una base funcional que une diseño, gestión y experiencia del asistente. Nexxo muestra mi trabajo más allá de una web de presentación: construir una aplicación con recorridos completos, personalización y reglas de negocio. Continúa en desarrollo y con los cobros reales desactivados.",
+    },
+  },
+  {
     title: "PsicotestPol",
     slug: "psicotestpol",
     category: "Plataforma SaaS",
@@ -94,7 +190,6 @@ export const projects: Project[] = [
       },
     ],
     featured: true,
-    spotlight: true,
     metrics: [
       { value: "Marca", label: "Identidad y recursos reales" },
       { value: "Conversión", label: "Clase de prueba y reservas" },

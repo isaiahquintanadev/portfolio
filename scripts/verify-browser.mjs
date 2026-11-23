@@ -8,7 +8,7 @@ const base = process.env.BROWSER_CHECK_URL ?? "http://localhost:3100";
 const output = "artifacts";
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL ?? "msedge", headless: true });
-const paths = ["/", "/proyectos", "/proyectos/psicotestpol", "/proyectos/being-fit", "/proyectos/alter-ego-experience", "/proyectos/fast-image-convert"];
+const paths = ["/", "/proyectos", "/proyectos/nexxo", "/proyectos/psicotestpol", "/proyectos/being-fit", "/proyectos/alter-ego-experience", "/proyectos/fast-image-convert"];
 const results = { base, browser: browser.version(), viewports: [], interactions: [], metrics: [], errors: [] };
 const pageErrors = [];
 const context = await browser.newContext();
@@ -42,7 +42,7 @@ try {
       }
       await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
       results.viewports.push({ width, path, overflow: false, images: "OK", headings: "OK" });
-      if ((width === 390 && ["/", "/proyectos/being-fit"].includes(path)) || (width === 1440)) {
+      if ((width === 390 && ["/", "/proyectos/nexxo", "/proyectos/being-fit"].includes(path)) || (width === 1440)) {
         const name = path === "/" ? "home" : path.slice(1).replaceAll("/", "-");
         await page.screenshot({ path: `${output}/${name}-${width}.png`, fullPage: true });
         await page.screenshot({ path: `${output}/${name}-${width}-viewport.png` });

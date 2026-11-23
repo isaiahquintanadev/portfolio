@@ -8,7 +8,7 @@ const base = process.env.BROWSER_CHECK_URL ?? "http://localhost:3100";
 const axeVersion = require("axe-core/package.json").version;
 await mkdir("artifacts", { recursive: true });
 const browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL ?? "msedge", headless: true });
-const paths = ["/", "/proyectos", "/proyectos/psicotestpol", "/proyectos/being-fit", "/proyectos/alter-ego-experience", "/proyectos/fast-image-convert"];
+const paths = ["/", "/proyectos", "/proyectos/nexxo", "/proyectos/psicotestpol", "/proyectos/being-fit", "/proyectos/alter-ego-experience", "/proyectos/fast-image-convert"];
 const report = { base, engine: "axe-core 4.11.1", browser: browser.version(), scope: "Automated accessibility and computed text contrast; no full WCAG conformance assessment", limits: ["No assistive technology user testing", "No text contrast analysis inside project screenshots", "Computed contrast composites ancestor backgrounds, converts CSS colors to sRGB through canvas, and skips complex backgrounds or ancestor opacity", "44px controls are a usability target; WCAG AA target size has different thresholds and exceptions", "The homepage is checked with disclosures and the mobile menu both closed and open"], pages: [] };
 
 try {

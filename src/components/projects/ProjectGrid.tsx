@@ -61,6 +61,7 @@ export default function ProjectGrid({
 
             <div className={`flex flex-1 flex-col ${spotlight ? "pt-6 lg:py-6" : "pt-6"}`}>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted">
+                {spotlight && <p className="font-medium text-[var(--brand)]">Proyecto destacado</p>}
                 {project.category && <p>{project.category}</p>}
                 {project.status && <p className="text-[#c4b5fd]">{statusLabels[project.status]}</p>}
               </div>
@@ -68,6 +69,17 @@ export default function ProjectGrid({
                 <Link href={projectPath(project)} className="hover:text-[#c4b5fd]">{project.title}</Link>
               </Heading>
               <p className="mt-4 max-w-xl text-base leading-7 text-muted">{project.summary ?? project.description}</p>
+
+              {spotlight && !!project.metrics?.length && (
+                <dl className="mt-6 grid grid-cols-1 gap-4 border-y border-white/10 py-5 sm:grid-cols-3 sm:gap-5">
+                  {project.metrics.map((metric) => (
+                    <div key={metric.label}>
+                      <dt className="text-sm leading-6 text-muted">{metric.label}</dt>
+                      <dd className="mt-1 text-base font-semibold">{metric.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
 
               <ul aria-label="Tecnologías principales" className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted">
                 {project.tech.slice(0, 4).map((tech) => <li key={tech}>{tech}</li>)}
